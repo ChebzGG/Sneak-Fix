@@ -1,0 +1,2037 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SneakFix Belarus — Мастерская реставрации и чистки обуви</title>
+  <meta name="description" content="Ручная биочистка и реставрация премиальной обуви в Минске. Бесплатный забор курьером за 48 часов с гарантией.">
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  
+  <script src="https://cdn.tailwindcss.com?plugins=container-queries"></script>
+
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            accent: {
+              DEFAULT: '#2C5364',
+              dark: '#1F3C49',
+              light: '#EBF2F5',
+              950: '#0F1E26'
+            },
+            brand: {
+              50: '#EEF2FF',
+              100: '#E0E7FF',
+              200: '#C7D2FE',
+              300: '#A5B4FC',
+              400: '#818CF8',
+              500: '#6366F1',
+              600: '#4F46E5',
+              700: '#4338CA',
+              800: '#3730A3',
+              900: '#312E81',
+              950: '#1E1B4B'
+            },
+            slate: {
+              50: '#F8FAFC',
+              100: '#F1F5F9',
+              200: '#E2E8F0',
+              300: '#CBD5E1',
+              400: '#94A3B8',
+              500: '#64748B',
+              600: '#475569',
+              700: '#2A2E39',
+              800: '#20232B',
+              900: '#181A20',
+              950: '#111215'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      [v-cloak] {
+        display: none !important;
+      }
+      .scrollbar-thin {
+        &::-webkit-scrollbar {
+          width: 6px;
+          height: 6px;
+        }
+        &::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: rgba(148, 163, 184, 0.4);
+          border-radius: 9999px;
+        }
+        &::-webkit-scrollbar-thumb:hover {
+          background-color: rgba(100, 116, 139, 0.7);
+        }
+      }
+    }
+
+    @layer components {
+      .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 active:scale-[0.98] transition-colors duration-150 disabled:opacity-50 disabled:pointer-events-none shadow-sm dark:bg-brand-600 dark:hover:bg-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/50;
+      }
+      .btn-secondary {
+        @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-800 bg-slate-100 hover:bg-slate-200 active:scale-[0.98] transition-colors duration-150 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400;
+      }
+      .btn-outline {
+        @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 hover:border-slate-400 active:scale-[0.98] transition-colors duration-150 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/50;
+      }
+      .btn-accent {
+        @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-accent hover:bg-accent-dark active:scale-[0.98] transition-colors duration-150 disabled:opacity-50 disabled:pointer-events-none shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50;
+      }
+      .btn-danger {
+        @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-rose-600 hover:bg-rose-700 active:scale-[0.98] transition-colors duration-150 disabled:opacity-50 disabled:pointer-events-none shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/50;
+      }
+      .card-surface {
+        @apply bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 dark:bg-[#181A20] dark:border-white/10 dark:text-slate-100 transition-colors duration-200;
+      }
+      .card-elevated {
+        @apply bg-white rounded-2xl border border-slate-200/60 shadow-lg p-6 dark:bg-[#181A20] dark:border-white/10 dark:text-slate-100 transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5;
+      }
+      .input-field {
+        @apply w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition duration-150 dark:bg-slate-950 dark:border-slate-700 dark:text-slate-100 dark:placeholder:text-slate-500;
+      }
+      .badge-pill {
+        @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide;
+      }
+      .badge-success {
+        @apply bg-emerald-50 text-emerald-700 border border-emerald-200/80 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-800/60;
+      }
+      .badge-warning {
+        @apply bg-amber-50 text-amber-700 border border-amber-200/80 dark:bg-amber-950/40 dark:text-amber-400 dark:border-amber-800/60;
+      }
+      .badge-danger {
+        @apply bg-rose-50 text-rose-700 border border-rose-200/80 dark:bg-rose-950/40 dark:text-rose-400 dark:border-rose-800/60;
+      }
+      .badge-info {
+        @apply bg-indigo-50 text-indigo-700 border border-indigo-200/80 dark:bg-indigo-950/40 dark:text-indigo-400 dark:border-indigo-800/60;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased selection:bg-brand-500/20 selection:text-brand-700 min-h-screen flex flex-col transition-colors duration-200">
+  <div id="app" v-cloak class="flex flex-col min-h-screen">
+
+    
+    <header class="sticky top-0 z-50 backdrop-blur bg-white/95 dark:bg-slate-900/95 border-b border-slate-200/80 dark:border-slate-800 transition-colors duration-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        
+        
+        <a class="flex items-center gap-2.5 text-lg font-extrabold tracking-tight text-slate-900 dark:text-white shrink-0" href="#hero" @click="switchView('site')">
+          <span class="w-8 h-8 rounded-xl bg-slate-900 text-white dark:bg-brand-600 flex items-center justify-center text-xs font-mono font-bold shadow-sm">SF</span>
+          <span>Sneak<span class="text-accent dark:text-brand-400">Fix</span></span>
+          <span class="hidden sm:inline-block text-[10px] font-mono uppercase bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded border border-slate-200/80 dark:border-slate-700">Минск</span>
+        </a>
+
+        
+        <nav class="hidden lg:flex items-center gap-6 xl:gap-7 text-xs font-semibold text-slate-600 dark:text-slate-300" v-if="activeView === 'site'">
+          <a v-for="link in navLinks" :key="link.href" :href="link.href" @click.prevent="navigateTo(link.href)"
+            class="hover:text-slate-900 dark:hover:text-white transition-colors py-1">
+            {{ link.text }}
+          </a>
+
+          
+          <div class="relative">
+            <button type="button" @click="isMoreMenuOpen = !isMoreMenuOpen"
+              class="inline-flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors py-1 font-medium">
+              <span>Ещё</span>
+              <svg class="w-3.5 h-3.5 transition-transform" :class="{'rotate-180': isMoreMenuOpen}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div v-if="isMoreMenuOpen" class="absolute left-0 mt-2 w-52 rounded-2xl bg-white dark:bg-[#1C1F26] border border-slate-200 dark:border-white/10 shadow-xl py-2 z-50 animate-in fade-in zoom-in-95">
+              <a v-for="s in secondaryNavLinks" :key="s.href" :href="s.href" @click.prevent="navigateTo(s.href)"
+                class="block px-4 py-2 text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/5 transition">
+                {{ s.text }}
+              </a>
+            </div>
+          </div>
+        </nav>
+
+        
+        <div class="hidden sm:flex items-center gap-3" v-else>
+          <button type="button" @click="switchView('site')"
+            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-white dark:bg-brand-600 hover:bg-slate-800 dark:hover:bg-brand-500 transition shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+            <span>← На витрину сайта</span>
+          </button>
+          <span class="text-xs font-medium text-slate-400 dark:text-slate-500 hidden md:inline">Панель управления Voyager CRM</span>
+        </div>
+
+        
+        <div class="flex items-center gap-2 sm:gap-2.5">
+
+          
+          <button v-if="activeView === 'site' && currentUser" type="button" @click="openChat"
+            class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200/80 dark:bg-[#1C1F26] dark:hover:bg-[#252A35] text-slate-800 dark:text-slate-200 border border-slate-200/80 dark:border-white/10 transition"
+            title="Задать вопрос мастеру онлайн">
+            <svg class="w-4 h-4 text-accent dark:text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+            <span>Чат с мастером</span>
+            <span class="w-5 h-5 rounded-full bg-accent text-white text-[10px] font-bold flex items-center justify-center font-mono">2</span>
+          </button>
+
+          
+          <div class="hidden sm:block" v-if="activeView === 'site' && (isMaster || isAdmin)">
+            <button type="button" @click="switchView('admin')"
+              class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-[#1C1F26] hover:bg-slate-200/70 dark:hover:bg-[#252A35] border border-slate-200/80 dark:border-white/10 transition"
+              title="Открыть панель управления Voyager CRM">
+              <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+              <span>{{ isAdmin ? 'Панель Voyager CRM' : 'Кабинет мастера' }}</span>
+            </button>
+          </div>
+
+          
+          <button type="button" @click="toggleDarkMode"
+            class="p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/50"
+            :aria-label="isDarkMode ? 'Светлая тема' : 'Темная тема'"
+            :title="isDarkMode ? 'Светлая тема' : 'Темная тема'">
+            <svg v-if="!isDarkMode" class="w-4 h-4 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+            <svg v-else class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </button>
+
+          
+          <a href="#products" @click="switchView('site')" class="relative p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition" title="Корзина товаров">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+            <span v-if="cartCount > 0" class="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center font-mono">
+              {{ cartCount }}
+            </span>
+          </a>
+
+          
+          <template v-if="currentUser">
+            <div class="hidden sm:inline-flex items-center gap-2 text-xs font-semibold border px-3 py-1.5 rounded-xl shadow-xs"
+              :class="userRoleBadge.color">
+              <svg v-if="isAdmin" class="w-3.5 h-3.5 text-amber-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 01.78.375l2.25 3a1 1 0 001.246.275l3.5-1.75a1 1 0 011.378 1.157l-1.5 7.5A1 1 0 0116.63 13.5H3.37a1 1 0 01-.98-1.218l-1.5-7.5a1 1 0 011.378-1.157l3.5 1.75a1 1 0 001.246-.275l2.25-3A1 1 0 0110 2zM3 16a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+              <svg v-else-if="isMaster" class="w-3.5 h-3.5 text-brand-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
+              <svg v-else class="w-3.5 h-3.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+              <span class="max-w-[120px] truncate">{{ currentUser.name }}</span>
+            </div>
+            <button class="btn-outline text-xs py-1.5 px-3" type="button" @click="handleLogout" title="Выйти из аккаунта">Выйти</button>
+          </template>
+          <template v-else>
+            <button class="btn-primary text-xs py-2 px-4 shadow-sm" type="button" @click="openAuthModal('login')">
+              Войти
+            </button>
+          </template>
+
+          
+          <button class="lg:hidden p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none"
+            type="button" @click="toggleMenu" aria-label="Открыть мобильное меню">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    
+    <div class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm lg:hidden transition-opacity" v-if="isMenuOpen" @click.self="closeMenu">
+      <div class="bg-white dark:bg-slate-900 p-6 shadow-2xl w-full max-w-sm ml-auto h-full flex flex-col justify-between overflow-y-auto border-l border-slate-200 dark:border-slate-800">
+        <div>
+          <div class="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-base font-bold text-slate-900 dark:text-white">Sneak<span class="text-accent dark:text-brand-400">Fix</span> BY</span>
+            <button class="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg" @click="closeMenu">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          
+          <div v-if="currentUser" class="mt-4 mb-4">
+            <button type="button" @click="openChat(); closeMenu()"
+              class="w-full flex items-center justify-between p-3 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-[#1C1F26] text-slate-900 dark:text-white border border-slate-200/80 dark:border-white/10">
+              <span class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-accent dark:text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                <span>Чат с мастером</span>
+              </span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-accent text-white font-bold">2 новых</span>
+            </button>
+          </div>
+
+          
+          <div v-if="currentUser" class="mb-4 p-3 rounded-xl border text-xs" :class="userRoleBadge.color">
+            <div class="flex items-center justify-between">
+              <span class="font-bold flex items-center gap-1.5">
+                <svg v-if="isAdmin" class="w-3.5 h-3.5 text-amber-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 01.78.375l2.25 3a1 1 0 001.246.275l3.5-1.75a1 1 0 011.378 1.157l-1.5 7.5A1 1 0 0116.63 13.5H3.37a1 1 0 01-.98-1.218l-1.5-7.5a1 1 0 011.378-1.157l3.5 1.75a1 1 0 001.246-.275l2.25-3A1 1 0 0110 2zM3 16a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+                <svg v-else-if="isMaster" class="w-3.5 h-3.5 text-brand-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
+                <svg v-else class="w-3.5 h-3.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                {{ userRoleBadge.text }}
+              </span>
+              <span class="text-[10px] font-mono font-semibold">{{ currentUser.name }}</span>
+            </div>
+          </div>
+
+          <p class="text-[11px] font-mono uppercase text-slate-400 tracking-wider mb-2 font-semibold">Навигация по сайту</p>
+          <nav class="flex flex-col gap-1 mb-6">
+            <a v-for="link in mobileNavLinks" :key="link.href" :href="link.href"
+              class="text-xs font-semibold text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 transition"
+              @click.prevent="navigateTo(link.href)">
+              {{ link.text }}
+            </a>
+          </nav>
+
+          
+          <div v-if="isMaster || isAdmin" class="mb-6">
+            <p class="text-[11px] font-mono uppercase text-slate-400 tracking-wider mb-2 font-semibold">Кабинет мастерской</p>
+            <div class="flex flex-col gap-1">
+              <button @click="switchView('admin'); closeMenu()"
+                class="flex items-center justify-between p-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/5 text-left">
+                <span class="flex items-center gap-2.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span>
+                  <span>Панель управления Voyager CRM</span>
+                </span>
+                <span class="text-[10px] font-mono text-slate-400">→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-col gap-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-slate-500">Тема оформления:</span>
+            <button type="button" @click="toggleDarkMode" class="btn-outline text-xs py-1.5 px-3">
+              {{ isDarkMode ? 'Светлая' : 'Темная' }}
+            </button>
+          </div>
+          <template v-if="currentUser">
+            <button class="btn-outline w-full text-xs py-2 text-rose-600 border-rose-200" @click="handleLogout(); closeMenu();">Выйти ({{ currentUser.name }})</button>
+          </template>
+          <template v-else>
+            <button class="btn-primary w-full text-xs py-2.5" @click="openAuthModal('login'); closeMenu();">Войти в личный кабинет</button>
+          </template>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    <main v-if="activeView === 'site'" class="flex-1">
+
+      
+      <section id="hero" class="relative overflow-hidden bg-slate-950 text-white py-20 sm:py-28 lg:py-32">
+        
+        <img src="img/master-cover.jpg" alt="Мастерская SneakFix"
+          class="absolute inset-0 w-full h-full object-cover opacity-20 filter grayscale contrast-125 pointer-events-none">
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/80 to-slate-950 backdrop-blur-[1px] pointer-events-none"></div>
+
+        
+        <div class="absolute -top-24 -left-24 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 opacity-30 blur-3xl animate-pulse pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 opacity-25 blur-3xl animate-pulse pointer-events-none" style="animation-delay: 1.5s;"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur border border-white/15 text-xs font-semibold text-slate-200 mb-6">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            Прием заказов онлайн в Минске 24/7
+          </div>
+
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight max-w-4xl mx-auto leading-tight sm:leading-tight">
+            Ручная биочистка и
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400">
+              заводская реставрация
+            </span>
+            культовых кроссовок
+          </h1>
+
+          <p class="mt-6 text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            Восстанавливаем бархатистость замши, устраняем глубокие заломы кожи, въевшиеся масляные пятна и возвращаем белизну подошве за 48 часов с гарантией.
+          </p>
+
+          <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="#stepper" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-lg shadow-purple-500/50 active:scale-98 transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+              Рассчитать стоимость в калькуляторе
+            </a>
+            <a href="#about" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs font-semibold text-slate-200 bg-slate-900/60 hover:bg-slate-800/80 border border-slate-700 backdrop-blur active:scale-98 transition">
+              Смотреть работы мастера
+            </a>
+          </div>
+
+          
+          <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t border-white/10 text-left">
+            <div>
+              <p class="text-2xl sm:text-3xl font-extrabold text-white font-mono tabular-nums">4 500+</p>
+              <p class="text-xs text-slate-400 mt-1">Отреставрированных пар</p>
+            </div>
+            <div>
+              <p class="text-2xl sm:text-3xl font-extrabold text-white font-mono tabular-nums">48 ч</p>
+              <p class="text-xs text-slate-400 mt-1">Средний срок чистки</p>
+            </div>
+            <div>
+              <p class="text-2xl sm:text-3xl font-extrabold text-white font-mono tabular-nums">4.98 ★</p>
+              <p class="text-xs text-slate-400 mt-1">Рейтинг клиентов (340+ отзывов)</p>
+            </div>
+            <div>
+              <p class="text-2xl sm:text-3xl font-extrabold text-white font-mono tabular-nums">100%</p>
+              <p class="text-xs text-slate-400 mt-1">Безопасная эко-химия</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+      <section id="services" class="py-16 bg-white dark:bg-[#111215] border-b border-slate-200/80 dark:border-white/10 transition-colors scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 font-semibold">Стандарты качества</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Технологии бережного ремесла</h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="card-surface">
+              <div class="w-10 h-10 rounded-xl bg-brand-50 dark:bg-brand-500/20 text-brand-600 dark:text-brand-300 flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">Безопасные эко-составы</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                Сертифицированные французские составы Saphir Medaille D'Or и пена SneakFix Bio Foam с нейтральным pH 7.0. Без хлора, едких щелочей и синтетических отдушек.
+              </p>
+            </div>
+
+            <div class="card-surface">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">Гарантия на материалы 30 дней</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                Сохраняем мягкость и заводской ворс замши, эластичность кожи и герметичность воздушных баллонов Nike Air и капсул Boost.
+              </p>
+            </div>
+
+            <div class="card-surface">
+              <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-300 flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">Бесплатный курьер по Минску</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                Курьер приедет в фирменном боксе, зафиксирует состояние пары и доставит чистую обувь обратно к вашей двери точно в срок.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+      <section id="about" class="py-16 sm:py-20 bg-slate-50 dark:bg-[#111215] border-b border-slate-200/80 dark:border-white/10 transition-colors scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div class="flex flex-col lg:flex-row items-start justify-between gap-12">
+            
+            <div class="max-w-2xl">
+              <span class="text-xs font-mono uppercase tracking-wider text-accent dark:text-brand-400 font-semibold">О мастере и подходе</span>
+              <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-2 mb-4">
+                Регламенты фабричной реставрации обуви
+              </h2>
+              <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed mb-6">
+                SneakFix — специализированная сникер-мастерская с полным технологическим циклом. Мы реставрируем обувь по регламентам кожевенных мануфактур: глубокая ручная экстракция грязи без деформации колодки, сохранение заводского ворса замши и точный подбор заводского колера кожи.
+              </p>
+              
+              <div class="flex flex-wrap gap-2 mb-8">
+                <span v-for="badge in masterInfo.badges" :key="badge"
+                  class="badge-pill bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 shadow-sm text-xs py-1">
+                  ✓ {{ badge }}
+                </span>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-slate-200/80 dark:border-slate-800 pt-6">
+                <div v-for="s in masterInfo.stats" :key="s.label">
+                  <span class="block text-xl font-extrabold text-slate-900 dark:text-white font-mono tabular-nums">{{ s.value }}</span>
+                  <span class="text-xs text-slate-500 dark:text-slate-400">{{ s.label }}</span>
+                </div>
+              </div>
+            </div>
+
+            
+            <article class="w-full md:w-80 bg-white dark:bg-[#181A20] rounded-3xl shadow-xl border border-slate-200/80 dark:border-white/10 p-6 flex flex-col items-center text-center space-y-4">
+              <div class="relative">
+                <img :src="masterInfo.avatar" alt="Главный мастер Иван Романов"
+                  class="w-20 h-20 rounded-full object-cover shadow-md border-2 border-slate-200 dark:border-slate-700">
+                <span class="absolute bottom-0 right-0 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white dark:border-slate-900" title="В сети"></span>
+              </div>
+
+              <div>
+                <h3 class="text-base font-bold text-slate-900 dark:text-white">{{ masterInfo.name }}</h3>
+                <p class="text-xs font-semibold text-accent dark:text-brand-400 mt-0.5">{{ masterInfo.role }}</p>
+              </div>
+
+              <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                {{ masterInfo.bio }}
+              </p>
+
+              <div class="flex gap-2.5 w-full pt-2">
+                <button type="button" @click="toggleFollow"
+                  class="py-2 px-3 text-xs font-bold rounded-xl transition active:scale-95"
+                  :class="[
+                    currentUser ? 'flex-1' : 'w-full',
+                    isFollowing ? 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700' : 'btn-primary'
+                  ]">
+                  {{ isFollowing ? '✓ Following' : '+ Follow' }}
+                </button>
+                <button v-if="currentUser" type="button" @click="switchView('messenger')" class="btn-outline flex-1 text-xs py-2 px-3">
+                  Message
+                </button>
+              </div>
+            </article>
+          </div>
+
+          
+          <div class="mt-16 pt-12 border-t border-slate-200/80 dark:border-slate-800">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+              <div>
+                <span class="text-xs font-mono uppercase tracking-wider text-accent dark:text-brand-400 font-semibold">Галерея портфолио</span>
+                <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white mt-1">Отреставрированные релизы</h3>
+              </div>
+
+              <div class="flex flex-wrap gap-1.5 p-1 bg-slate-200/70 dark:bg-slate-800/80 rounded-xl">
+                <button type="button" @click="galleryFilter = 'all'"
+                  class="px-3 py-1.5 rounded-lg text-xs font-semibold transition"
+                  :class="galleryFilter === 'all' ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'">
+                  Все
+                </button>
+                <button type="button" @click="galleryFilter = 'jordan'"
+                  class="px-3 py-1.5 rounded-lg text-xs font-semibold transition"
+                  :class="galleryFilter === 'jordan' ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'">
+                  Jordan
+                </button>
+                <button type="button" @click="galleryFilter = 'yeezy'"
+                  class="px-3 py-1.5 rounded-lg text-xs font-semibold transition"
+                  :class="galleryFilter === 'yeezy' ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'">
+                  Yeezy
+                </button>
+                <button type="button" @click="galleryFilter = 'suede'"
+                  class="px-3 py-1.5 rounded-lg text-xs font-semibold transition"
+                  :class="galleryFilter === 'suede' ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'">
+                  Замша
+                </button>
+                <button type="button" @click="galleryFilter = 'luxe'"
+                  class="px-3 py-1.5 rounded-lg text-xs font-semibold transition"
+                  :class="galleryFilter === 'luxe' ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'">
+                  Luxe
+                </button>
+              </div>
+            </div>
+
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div v-for="work in filteredGalleryWorks" :key="work.id"
+                class="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-lg transition-all flex flex-col cursor-pointer"
+                @click="openGalleryModal(work)">
+                <div class="relative aspect-square overflow-hidden bg-slate-100 dark:bg-slate-800">
+                  <img :src="work.img" :alt="work.title" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                  <span class="absolute top-3 left-3 badge-pill bg-white/95 dark:bg-slate-900/95 text-slate-800 dark:text-slate-100 shadow-sm">
+                    {{ work.tag }}
+                  </span>
+                  <span class="absolute top-3 right-3 badge-pill bg-slate-900 text-white dark:bg-brand-600 shadow-sm">
+                    {{ work.complexity }}
+                  </span>
+                </div>
+
+                <div class="p-4 flex flex-col flex-1 justify-between gap-2">
+                  <div>
+                    <p class="text-[10px] font-mono uppercase text-slate-400">{{ work.categoryLabel }}</p>
+                    <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate mt-0.5">{{ work.title }}</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-1 leading-relaxed">{{ work.desc }}</p>
+                  </div>
+                  <div class="flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-2.5">
+                    <span>Заказчик: {{ work.client }}</span>
+                    <span class="text-brand-600 dark:text-brand-400 font-semibold">Подробнее →</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      
+      <section class="max-w-4xl mx-auto px-4 py-16 scroll-mt-20" id="before-after">
+        <div class="text-center mb-8">
+          <span class="text-xs font-mono uppercase tracking-wider text-accent dark:text-brand-400 font-semibold">Результат</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Сравнение До и После реставрации</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Потяните разделитель в центре для наглядного сравнения</p>
+        </div>
+
+        <div class="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-slate-200/80 dark:border-white/10 select-none touch-none group">
+          
+          <img src="img/after.jpg" alt="После реставрации" class="absolute inset-0 w-full h-full object-cover">
+          <div class="absolute top-4 right-4 badge-pill bg-slate-900/90 text-white backdrop-blur z-10 text-xs font-mono font-bold shadow-md">ПОСЛЕ</div>
+
+          
+          <div class="absolute inset-0 w-full h-full pointer-events-none"
+            :style="{ clipPath: 'inset(0 ' + (100 - sliderPos) + '% 0 0)' }">
+            <img src="img/before.jpg" alt="До реставрации" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute top-4 left-4 badge-pill bg-slate-900/90 text-white backdrop-blur z-10 text-xs font-mono font-bold shadow-md">ДО</div>
+          </div>
+
+          
+          <div class="absolute top-0 bottom-0 w-0.5 bg-white shadow-2xl pointer-events-none -ml-px z-20 flex items-center justify-center"
+            :style="{ left: sliderPos + '%' }">
+            <div class="w-8 h-8 rounded-full bg-white dark:bg-[#1C1F26] text-slate-900 dark:text-white shadow-2xl border-2 border-brand-500 flex items-center justify-center text-xs font-bold ring-4 ring-black/20 group-hover:scale-110 transition-transform">
+              ↔
+            </div>
+          </div>
+
+          
+          <input type="range" min="0" max="100" v-model.number="sliderPos"
+            aria-label="Сравнение До и После реставрации"
+            class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30 m-0 p-0">
+        </div>
+
+        
+        <div class="flex items-center justify-center gap-2 mt-4 text-xs font-medium">
+          <button type="button" @click="sliderPos = 100" class="btn-outline py-1.5 px-3 text-xs" :class="{'ring-2 ring-brand-500': sliderPos === 100}">
+            Только ДО (100%)
+          </button>
+          <button type="button" @click="sliderPos = 50" class="btn-primary py-1.5 px-3 text-xs" :class="{'ring-2 ring-brand-500': sliderPos === 50}">
+            50 / 50
+          </button>
+          <button type="button" @click="sliderPos = 0" class="btn-outline py-1.5 px-3 text-xs" :class="{'ring-2 ring-brand-500': sliderPos === 0}">
+            Только ПОСЛЕ (100%)
+          </button>
+        </div>
+      </section>
+
+      
+      <section id="stepper" class="py-16 sm:py-20 bg-white dark:bg-[#111215] border-y border-slate-200/80 dark:border-white/10 transition-colors scroll-mt-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div class="text-center max-w-xl mx-auto mb-10">
+            <span class="text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 font-semibold">Калькулятор</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Расчет сметы онлайн</h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Определите точную стоимость реставрации за 4 простых шага</p>
+          </div>
+
+          <div class="card-surface p-6 sm:p-8 shadow-lg">
+            
+            
+            <div class="mb-8">
+              <div class="grid grid-cols-4 gap-2 text-center text-xs font-semibold mb-3">
+                <span :class="stepperStep >= 1 ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400'">1. Контакты</span>
+                <span :class="stepperStep >= 2 ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400'">2. Обувь и адрес</span>
+                <span :class="stepperStep >= 3 ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400'">3. Тариф и опции</span>
+                <span :class="stepperStep >= 4 ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400'">4. Подтверждение</span>
+              </div>
+              <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden flex">
+                <div class="bg-slate-900 dark:bg-brand-500 h-full transition-all duration-300"
+                  :style="{ width: ((stepperStep / 4) * 100) + '%' }"></div>
+              </div>
+            </div>
+
+            
+            <div v-if="stepperStep === 1" class="space-y-4">
+              <h3 class="text-base font-bold text-slate-900 dark:text-white">Шаг 1: Контактные данные</h3>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Ваше имя *</label>
+                <input type="text" v-model.trim="stepperForm.name" class="input-field" placeholder="Иван Романов" required>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Телефон *</label>
+                  <input type="tel" v-model.trim="stepperForm.phone" class="input-field font-mono" placeholder="+375 (29) 123-45-67" required>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Email</label>
+                  <input type="email" v-model.trim="stepperForm.email" class="input-field" placeholder="ivan@sneakfix.by">
+                </div>
+              </div>
+            </div>
+
+            
+            <div v-if="stepperStep === 2" class="space-y-4">
+              <h3 class="text-base font-bold text-slate-900 dark:text-white">Шаг 2: Модель обуви и забор</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Бренд *</label>
+                  <select v-model="stepperForm.shoeBrand" class="input-field">
+                    <option value="Nike">Nike / Jordan</option>
+                    <option value="Adidas">Adidas / Yeezy</option>
+                    <option value="New Balance">New Balance</option>
+                    <option value="Balenciaga">Balenciaga / Luxe</option>
+                    <option value="Timberland">Timberland / Ботинки</option>
+                    <option value="Другой">Другой бренд</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Модель *</label>
+                  <input type="text" v-model.trim="stepperForm.shoeModel" class="input-field" placeholder="например, Air Jordan 1 High" required>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Материал верха</label>
+                <div class="grid grid-cols-3 gap-2">
+                  <label class="border border-slate-200 dark:border-slate-700 p-2.5 rounded-xl text-center text-xs cursor-pointer transition font-medium"
+                    :class="stepperForm.shoeMaterial === 'leather' ? 'border-brand-500 bg-brand-50/50 dark:bg-brand-950/40 text-brand-600 font-bold' : ''">
+                    <input type="radio" value="leather" v-model="stepperForm.shoeMaterial" class="sr-only">
+                    Кожа
+                  </label>
+                  <label class="border border-slate-200 dark:border-slate-700 p-2.5 rounded-xl text-center text-xs cursor-pointer transition font-medium"
+                    :class="stepperForm.shoeMaterial === 'suede' ? 'border-brand-500 bg-brand-50/50 dark:bg-brand-950/40 text-brand-600 font-bold' : ''">
+                    <input type="radio" value="suede" v-model="stepperForm.shoeMaterial" class="sr-only">
+                    Замша / Нубук
+                  </label>
+                  <label class="border border-slate-200 dark:border-slate-700 p-2.5 rounded-xl text-center text-xs cursor-pointer transition font-medium"
+                    :class="stepperForm.shoeMaterial === 'textile' ? 'border-brand-500 bg-brand-50/50 dark:bg-brand-950/40 text-brand-600 font-bold' : ''">
+                    <input type="radio" value="textile" v-model="stepperForm.shoeMaterial" class="sr-only">
+                    Сетка / Текстиль
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Адрес забора курьером (в пределах Минска)</label>
+                <input type="text" v-model.trim="stepperForm.address" class="input-field" placeholder="пр-т Независимости, д. 48, кв. 12">
+              </div>
+            </div>
+
+            
+            <div v-if="stepperStep === 3" class="space-y-4">
+              <h3 class="text-base font-bold text-slate-900 dark:text-white">Шаг 3: Пакет услуг и опции</h3>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <label class="border-2 border-slate-200 dark:border-slate-700 p-4 rounded-2xl cursor-pointer has-[:checked]:border-brand-500 has-[:checked]:ring-2 has-[:checked]:ring-brand-500/20 has-[:checked]:bg-brand-50/40 dark:has-[:checked]:bg-brand-950/30 transition">
+                  <input type="radio" value="basic" v-model="stepperForm.tariff" class="sr-only">
+                  <span class="block text-sm font-bold text-slate-900 dark:text-white">Basic Care</span>
+                  <span class="block text-lg font-extrabold text-brand-600 dark:text-brand-400 font-mono my-1">35 BYN</span>
+                  <span class="block text-[11px] text-slate-500">Базовая биочистка</span>
+                </label>
+
+                <label class="border-2 border-slate-200 dark:border-slate-700 p-4 rounded-2xl cursor-pointer has-[:checked]:border-brand-500 has-[:checked]:ring-2 has-[:checked]:ring-brand-500/20 has-[:checked]:bg-brand-50/40 dark:has-[:checked]:bg-brand-950/30 transition">
+                  <input type="radio" value="pro" v-model="stepperForm.tariff" class="sr-only">
+                  <span class="inline-flex items-center gap-1.5 text-sm font-bold text-slate-900 dark:text-white">
+                    Pro Care
+                    <span class="badge-pill bg-indigo-500 text-white text-[9px] py-0.5">Хит</span>
+                  </span>
+                  <span class="block text-lg font-extrabold text-brand-600 dark:text-brand-400 font-mono my-1">65 BYN</span>
+                  <span class="block text-[11px] text-slate-500">Глубокая чистка + Нано</span>
+                </label>
+
+                <label class="border-2 border-slate-200 dark:border-slate-700 p-4 rounded-2xl cursor-pointer has-[:checked]:border-brand-500 has-[:checked]:ring-2 has-[:checked]:ring-brand-500/20 has-[:checked]:bg-brand-50/40 dark:has-[:checked]:bg-brand-950/30 transition">
+                  <input type="radio" value="enterprise" v-model="stepperForm.tariff" class="sr-only">
+                  <span class="block text-sm font-bold text-slate-900 dark:text-white">Luxe Bespoke</span>
+                  <span class="block text-lg font-extrabold text-brand-600 dark:text-brand-400 font-mono my-1">120 BYN</span>
+                  <span class="block text-[11px] text-slate-500">Полная колеровка</span>
+                </label>
+              </div>
+
+              <div class="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2">
+                <p class="text-xs font-semibold text-slate-700 dark:text-slate-300">Дополнительные опции:</p>
+                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/40 transition">
+                  <div class="flex items-center gap-2.5">
+                    <input type="checkbox" v-model="stepperForm.soleWhitening" class="rounded text-brand-600 focus:ring-brand-500 w-4 h-4">
+                    <span class="text-xs text-slate-800 dark:text-slate-200 font-medium">Отбеливание подошвы в UV-камере</span>
+                  </div>
+                  <span class="text-xs font-mono font-bold text-slate-900 dark:text-white">+15 BYN</span>
+                </label>
+
+                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/40 transition">
+                  <div class="flex items-center gap-2.5">
+                    <input type="checkbox" v-model="stepperForm.ozoneDeodorant" class="rounded text-brand-600 focus:ring-brand-500 w-4 h-4">
+                    <span class="text-xs text-slate-800 dark:text-slate-200 font-medium">Озоновая дезинфекция против запаха</span>
+                  </div>
+                  <span class="text-xs font-mono font-bold text-slate-900 dark:text-white">+10 BYN</span>
+                </label>
+              </div>
+            </div>
+
+            
+            <div v-if="stepperStep === 4" class="space-y-4">
+              <div v-if="!isStepperCompleted">
+                <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">Шаг 4: Сводка заказа</h3>
+                <div class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-4 border border-slate-200/80 dark:border-slate-700 space-y-2 text-xs">
+                  <div class="flex justify-between py-1 border-b border-slate-200/60 dark:border-slate-700">
+                    <span class="text-slate-500">Клиент:</span>
+                    <span class="font-bold text-slate-900 dark:text-white">{{ stepperForm.name || 'Не указано' }} ({{ stepperForm.phone }})</span>
+                  </div>
+                  <div class="flex justify-between py-1 border-b border-slate-200/60 dark:border-slate-700">
+                    <span class="text-slate-500">Модель:</span>
+                    <span class="font-bold text-slate-900 dark:text-white">{{ stepperForm.shoeBrand }} {{ stepperForm.shoeModel }}</span>
+                  </div>
+                  <div class="flex justify-between py-1 border-b border-slate-200/60 dark:border-slate-700">
+                    <span class="text-slate-500">Тариф:</span>
+                    <span class="font-bold uppercase text-brand-600 dark:text-brand-400">{{ stepperForm.tariff }}</span>
+                  </div>
+                  <div class="flex justify-between py-1 border-b border-slate-200/60 dark:border-slate-700">
+                    <span class="text-slate-500">Адрес доставки:</span>
+                    <span class="font-bold text-slate-900 dark:text-white">{{ stepperForm.address || 'Самовывоз из мастерской' }}</span>
+                  </div>
+                  <div class="flex justify-between py-2 text-sm font-extrabold">
+                    <span>Итого к оплате:</span>
+                    <span class="text-lg text-emerald-600 dark:text-emerald-400 font-mono">{{ stepperTotal }} BYN</span>
+                  </div>
+                </div>
+              </div>
+
+              
+              <div v-else class="text-center py-6 space-y-3">
+                <div class="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-600 flex items-center justify-center mx-auto text-xl font-bold">
+                  ✓
+                </div>
+                <h4 class="text-lg font-bold text-slate-900 dark:text-white">Заказ успешно сформирован!</h4>
+                <p class="text-xs text-slate-500 max-w-sm mx-auto">
+                  Номер вашей заявки добавлен в реестр заказов. Мастер свяжется с вами в течение 10 минут.
+                </p>
+                <button type="button" @click="resetStepper" class="btn-outline text-xs py-2 px-4 mt-2">
+                  Оформить еще одну пару
+                </button>
+              </div>
+            </div>
+
+            
+            <div class="flex justify-between items-center pt-6 mt-6 border-t border-slate-100 dark:border-slate-800" v-if="!isStepperCompleted">
+              <button type="button" @click="prevStepperStep" :disabled="stepperStep === 1"
+                class="btn-outline text-xs py-2 px-4 disabled:opacity-40">
+                ← Назад
+              </button>
+              <div class="text-xs font-mono text-slate-500">
+                Итого: <span class="font-bold text-slate-900 dark:text-white">{{ stepperTotal }} BYN</span>
+              </div>
+              <button v-if="stepperStep < 4" type="button" @click="nextStepperStep" class="btn-primary text-xs py-2 px-5">
+                Далее →
+              </button>
+              <button v-else type="button" @click="finishStepperOrder" class="btn-primary bg-emerald-600 hover:bg-emerald-500 text-xs py-2 px-6">
+                Подтвердить заказ
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      
+      <section id="products" class="py-16 sm:py-20 bg-slate-50 dark:bg-[#111215] border-b border-slate-200/80 dark:border-white/10 transition-colors scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div>
+              <span class="text-xs font-mono uppercase tracking-wider text-accent dark:text-brand-400 font-semibold">Фирменный магазин</span>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Средства домашнего ухода</h2>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Профессиональная химия и аксессуары для обуви</p>
+            </div>
+
+            <button type="button" @click="isMobileFilterDrawerOpen = true"
+              class="md:hidden inline-flex items-center gap-2 btn-outline text-xs py-2 px-3 self-start">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+              </svg>
+              Фильтры и сортировка
+            </button>
+          </div>
+
+          
+          <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm mb-8 space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-500 mb-1">Поиск</label>
+                <input type="text" v-model="catalogSearch" @input="triggerCatalogFilter"
+                  placeholder="Пена, щетка, спрей..." class="input-field py-2 text-xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-500 mb-1">Категория</label>
+                <select v-model="catalogCategory" @change="triggerCatalogFilter" class="input-field py-2 text-xs">
+                  <option value="all">Все категории</option>
+                  <option value="foam">Пены и шампуни</option>
+                  <option value="protection">Влагозащита</option>
+                  <option value="brushes">Щетки и аксессуары</option>
+                  <option value="creams">Кремы и воски</option>
+                  <option value="deodorants">Дезодоранты</option>
+                </select>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-[11px] font-semibold text-slate-500 mb-1">
+                  <span>Макс. цена:</span>
+                  <span class="font-mono text-slate-900 dark:text-white font-bold">{{ catalogPriceMax }} BYN</span>
+                </div>
+                <input type="range" min="15" max="60" step="5" v-model.number="catalogPriceMax" @input="triggerCatalogFilter"
+                  class="w-full accent-brand-500 cursor-pointer">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-500 mb-1">Сортировка</label>
+                <select v-model="catalogSort" @change="triggerCatalogFilter" class="input-field py-2 text-xs">
+                  <option value="popular">По популярности</option>
+                  <option value="price-asc">Сначала дешевле</option>
+                  <option value="price-desc">Сначала дороже</option>
+                  <option value="rating">По рейтингу ★</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          
+          <div v-if="isCatalogLoading" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-pulse">
+            <div v-for="i in 4" :key="i" class="card-surface p-4 space-y-4">
+              <div class="w-full aspect-square bg-slate-200 dark:bg-slate-800 rounded-xl"></div>
+              <div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-3/4"></div>
+              <div class="h-3 bg-slate-200 dark:bg-slate-800 rounded w-1/2"></div>
+              <div class="h-8 bg-slate-200 dark:bg-slate-800 rounded"></div>
+            </div>
+          </div>
+
+          
+          <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div v-for="product in paginatedCatalogProducts" :key="product.id"
+              class="@container group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-4 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between">
+              
+              <div>
+                <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 mb-3">
+                  <img :src="product.img" :alt="product.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                  <span class="absolute top-2 left-2 badge-pill bg-white/95 dark:bg-slate-900/95 text-slate-800 dark:text-slate-100 text-[10px] shadow-sm">
+                    {{ product.tag }}
+                  </span>
+                </div>
+
+                <span class="text-[10px] font-mono uppercase text-slate-400 block mb-0.5">{{ product.categoryName }}</span>
+                <h4 class="text-xs font-bold text-slate-900 dark:text-white line-clamp-1 mb-1">{{ product.name }}</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed mb-3">{{ product.desc }}</p>
+              </div>
+
+              <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
+                <div>
+                  <span class="text-sm font-extrabold text-slate-900 dark:text-white font-mono tabular-nums">{{ product.price }} BYN</span>
+                  <div class="flex items-center text-[10px] text-amber-500 font-semibold">
+                    ★ {{ product.rating }} ({{ product.reviewsCount }})
+                  </div>
+                </div>
+
+                <button type="button" @click="addToCart(product)" class="btn-primary text-xs py-1.5 px-3">
+                  В корзину
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          
+          <div class="mt-8 flex items-center justify-center gap-2" v-if="catalogTotalPages > 1">
+            <button type="button" @click="catalogPage--" :disabled="catalogPage === 1"
+              class="btn-outline text-xs py-1.5 px-3 disabled:opacity-40">
+              ← Назад
+            </button>
+            <span class="text-xs font-mono font-semibold px-3">
+              Страница {{ catalogPage }} из {{ catalogTotalPages }}
+            </span>
+            <button type="button" @click="catalogPage++" :disabled="catalogPage >= catalogTotalPages"
+              class="btn-outline text-xs py-1.5 px-3 disabled:opacity-40">
+              Вперед →
+            </button>
+          </div>
+
+        </div>
+
+        
+        <div class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm md:hidden transition-opacity"
+          v-if="isMobileFilterDrawerOpen" @click.self="isMobileFilterDrawerOpen = false">
+          <div class="fixed inset-x-0 bottom-0 bg-white dark:bg-slate-900 rounded-t-3xl p-6 shadow-2xl border-t border-slate-200 dark:border-slate-800 max-h-[85vh] overflow-y-auto space-y-4">
+            <div class="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-800">
+              <h3 class="font-bold text-slate-900 dark:text-white text-base">Фильтры каталога</h3>
+              <button class="p-1.5 text-slate-400" @click="isMobileFilterDrawerOpen = false">✕</button>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Категория</label>
+              <select v-model="catalogCategory" @change="triggerCatalogFilter" class="input-field">
+                <option value="all">Все категории</option>
+                <option value="foam">Пены и шампуни</option>
+                <option value="protection">Влагозащита</option>
+                <option value="brushes">Щетки и аксессуары</option>
+                <option value="creams">Кремы и воски</option>
+                <option value="deodorants">Дезодоранты</option>
+              </select>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <span>Максимальная цена:</span>
+                <span class="font-mono">{{ catalogPriceMax }} BYN</span>
+              </div>
+              <input type="range" min="15" max="60" step="5" v-model.number="catalogPriceMax" class="w-full accent-brand-500">
+            </div>
+
+            <div class="flex gap-2 pt-2">
+              <button class="btn-outline flex-1 text-xs py-2.5" @click="resetCatalogFilters(); isMobileFilterDrawerOpen = false;">Сбросить</button>
+              <button class="btn-primary flex-1 text-xs py-2.5" @click="isMobileFilterDrawerOpen = false">Применить</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+      <section id="pricing" class="py-16 sm:py-20 bg-white dark:bg-[#111215] border-b border-slate-200/80 dark:border-white/10 transition-colors scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 font-semibold">Пакеты услуг</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Прозрачные тарифы мастерской</h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Фиксированная стоимость без скрытых доплат</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
+            <div v-for="plan in pricingPlans" :key="plan.id"
+              class="card-surface flex flex-col justify-between relative transition-all duration-300"
+              :class="plan.popular ? 'ring-2 ring-indigo-500 lg:scale-105 shadow-xl bg-slate-50/50 dark:bg-slate-800/80 z-10' : ''">
+              
+              <div v-if="plan.popular" class="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                <span class="badge-pill bg-slate-900 text-white dark:bg-brand-600 shadow-md text-xs px-3 py-1 font-bold">
+                  Популярный выбор
+                </span>
+              </div>
+
+              <div>
+                <div class="mb-4">
+                  <h3 class="text-lg font-bold text-slate-900 dark:text-white">{{ plan.name }}</h3>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{{ plan.desc }}</p>
+                </div>
+
+                <div class="my-6 pb-6 border-b border-slate-100 dark:border-slate-800">
+                  <span class="text-3xl font-extrabold text-slate-900 dark:text-white font-mono tracking-tight">{{ plan.price }}</span>
+                  <span class="text-xs text-slate-500"> / {{ plan.period }}</span>
+                </div>
+
+                <ul class="space-y-3 divide-y divide-slate-100 dark:divide-slate-800 text-xs">
+                  <li v-for="(feat, fIdx) in plan.features" :key="fIdx" class="pt-3 flex items-start gap-2.5">
+                    <span v-if="feat.included" class="text-emerald-500 font-bold shrink-0">✓</span>
+                    <span v-else class="text-slate-300 dark:text-slate-600 font-bold shrink-0">✕</span>
+                    <span :class="feat.included ? 'text-slate-700 dark:text-slate-300 font-medium' : 'text-slate-400 line-through'">
+                      {{ feat.text }}
+                    </span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="pt-8">
+                <a href="#stepper" class="w-full text-center" :class="plan.popular ? 'btn-primary' : 'btn-outline'">
+                  Выбрать {{ plan.name }}
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      
+      <section id="testimonials" class="py-16 sm:py-20 bg-slate-50 dark:bg-[#111215] border-b border-slate-200/80 dark:border-white/10 transition-colors scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+            <div>
+              <span class="text-xs font-mono uppercase tracking-wider text-accent dark:text-brand-400 font-semibold">Отзывы клиентов</span>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Истории спасения обуви</h2>
+            </div>
+            <p class="text-xs text-slate-500">Листайте карусель свайпом ↔</p>
+          </div>
+
+          
+          <div class="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 pt-2 scroll-smooth scrollbar-thin">
+            <div v-for="t in testimonials" :key="t.id"
+              class="snap-center min-w-[300px] sm:min-w-[360px] max-w-md card-surface flex flex-col justify-between shrink-0 shadow-sm">
+              <div>
+                <div class="flex items-center gap-1 text-amber-500 mb-3 text-xs">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                  <span class="font-mono text-slate-400 ml-1 font-bold">5.0</span>
+                </div>
+                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed italic mb-6">
+                  «{{ t.text }}»
+                </p>
+              </div>
+
+              <div class="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+                <img :src="t.avatar" :alt="t.name" class="w-9 h-9 rounded-full object-cover border border-slate-200 dark:border-slate-700">
+                <div>
+                  <h4 class="text-xs font-bold text-slate-900 dark:text-white">{{ t.name }}</h4>
+                  <p class="text-[10px] text-slate-500">{{ t.role }} • <span class="text-brand-600 dark:text-brand-400 font-semibold">{{ t.model }}</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      
+      <section id="faq" class="py-16 sm:py-20 bg-white dark:bg-[#111215] border-b border-slate-200/80 dark:border-white/10 transition-colors scroll-mt-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div class="text-center max-w-xl mx-auto mb-10">
+            <span class="text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 font-semibold">База знаний</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Часто задаваемые вопросы</h2>
+          </div>
+
+          <div class="space-y-3">
+            <details v-for="(item, idx) in faqItems" :key="idx"
+              class="group bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200/80 dark:border-slate-700/80 p-4 cursor-pointer transition">
+              <summary class="flex justify-between items-center font-bold text-xs sm:text-sm text-slate-900 dark:text-white list-none select-none">
+                <span>{{ item.q }}</span>
+                <span class="w-5 h-5 rounded-full bg-white dark:bg-slate-700 flex items-center justify-center text-[10px] group-open:rotate-180 transition-transform duration-200 shrink-0 ml-3">
+                  ▼
+                </span>
+              </summary>
+              <p class="mt-3 text-xs text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-200/60 dark:border-slate-700/60 pt-3">
+                {{ item.a }}
+              </p>
+            </details>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <ad-slot size="banner" label="Рекламное место"></ad-slot>
+      </section>
+
+      <footer id="contact" class="border-t border-slate-200/80 dark:border-white/10 bg-white dark:bg-[#111215] py-12 text-xs text-slate-500 transition-colors mt-auto scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <span class="text-sm font-extrabold text-slate-900 dark:text-white block mb-2">SneakFix BY</span>
+              <p class="text-slate-500 leading-relaxed mb-4">
+                Студия биочистки и заводской реставрации премиальной обуви в Минске.
+              </p>
+              <div class="flex gap-2">
+                <span class="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-mono text-[10px]">TG</span>
+                <span class="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-mono text-[10px]">IG</span>
+                <span class="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-mono text-[10px]">VK</span>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[10px] mb-3 tracking-wider">Услуги</h4>
+              <ul class="space-y-2">
+                <li><a href="#services" class="hover:text-slate-900 dark:hover:text-white transition">Комплексная биочистка</a></li>
+                <li><a href="#services" class="hover:text-slate-900 dark:hover:text-white transition">Реставрация и покраска кожи</a></li>
+                <li><a href="#services" class="hover:text-slate-900 dark:hover:text-white transition">Восстановление ворса замши</a></li>
+                <li><a href="#services" class="hover:text-slate-900 dark:hover:text-white transition">Отбеливание подошвы Sole Bright</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[10px] mb-3 tracking-wider">Клиентам</h4>
+              <ul class="space-y-2">
+                <li><a href="#about" class="hover:text-slate-900 dark:hover:text-white transition">О главном мастере</a></li>
+                <li><a href="#pricing" class="hover:text-slate-900 dark:hover:text-white transition">Тарифы и пакеты</a></li>
+                <li><a href="#faq" class="hover:text-slate-900 dark:hover:text-white transition">Вопрос-ответ (FAQ)</a></li>
+                <li><a href="#stepper" class="hover:text-slate-900 dark:hover:text-white transition">Онлайн-калькулятор заказа</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[10px] mb-3 tracking-wider">Контакты</h4>
+              <ul class="space-y-1.5 leading-relaxed">
+                <li>г. Минск, пр-т Независимости, 48</li>
+                <li>Телефон: +375 (29) 777-22-11</li>
+                <li>Режим: Пн-Вс с 10:00 до 21:00</li>
+                <li>Бесплатный курьер по Минску</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px]">
+            <p>© 2026 SneakFix Belarus. Проект практической работы по Веб-разработке.</p>
+            <div class="flex gap-4">
+              <span>Tailwind v3.4</span>
+              <span>Vue.js 3 SPA</span>
+              <span>Unslop Design Standard</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    </main>
+
+    
+
+    
+    
+    
+    
+    <main v-else-if="activeView === 'admin'" class="min-h-screen bg-slate-100 dark:bg-slate-950 flex-1 flex flex-col">
+      
+      <div v-if="!currentUser" class="flex-1 flex items-center justify-center p-6 min-h-[75vh]">
+        <div class="max-w-md w-full bg-white dark:bg-[#181A20] rounded-3xl p-8 border border-slate-200/80 dark:border-white/10 shadow-xl text-center">
+          <div class="w-16 h-16 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Авторизация в Voyager CRM</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
+            Доступ к аналитике, реестру заказов, цеховой Kanban-доске и переписке с мастером предоставляется авторизованным пользователям SneakFix.
+          </p>
+          <div class="space-y-2.5">
+            <button type="button" @click="openAuthModal('login')" class="btn-primary w-full text-xs py-2.5 shadow-sm">
+              Войти в систему
+            </button>
+            <button type="button" @click="switchView('site')" class="btn-outline w-full text-xs py-2">
+              ← На витрину сайта
+            </button>
+          </div>
+        </div>
+      </div>
+
+      
+      <div v-else class="flex-1 flex flex-col md:flex-row min-h-[calc(100vh-65px)]">
+        
+        
+        <aside class="w-full md:w-64 bg-slate-900 text-slate-300 flex flex-col justify-between shrink-0 p-5 z-20 border-r border-slate-800">
+          <div>
+            <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+              <div class="flex items-center gap-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-sm font-extrabold text-white tracking-tight">SneakFix Voyager</span>
+              </div>
+              <span class="badge-pill bg-brand-500/20 text-brand-300 border border-brand-500/30 text-[9px] font-mono">v3.4</span>
+            </div>
+
+            <div class="mt-4 px-2.5 py-2 rounded-xl bg-slate-800/60 border border-slate-700/50 flex items-center justify-between">
+              <div class="flex items-center gap-2 truncate">
+                <span class="w-2 h-2 rounded-full" :class="isAdmin ? 'bg-amber-400' : (isMaster ? 'bg-indigo-400' : 'bg-emerald-400')"></span>
+                <span class="text-[11px] font-medium text-slate-200 truncate">{{ currentUser.name }}</span>
+              </div>
+              <span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded bg-slate-700 text-slate-300 font-bold shrink-0">{{ currentUser.role }}</span>
+            </div>
+
+            
+            <nav class="mt-5 space-y-1 text-xs font-semibold">
+              
+              <button type="button" @click="adminTab = 'overview'"
+                class="w-full flex items-center justify-between p-2.5 rounded-xl transition text-left"
+                :class="adminTab === 'overview' ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-400 hover:text-white hover:bg-slate-800/80'">
+                <div class="flex items-center gap-3">
+                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                  <span>Дашборд аналитики</span>
+                </div>
+              </button>
+
+              
+              <button type="button" @click="adminTab = 'orders'"
+                class="w-full flex items-center justify-between p-2.5 rounded-xl transition text-left"
+                :class="adminTab === 'orders' ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-400 hover:text-white hover:bg-slate-800/80'">
+                <div class="flex items-center gap-3">
+                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                  <span>Реестр заказов</span>
+                </div>
+                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-bold">{{ tableData.length }}</span>
+              </button>
+
+              
+              <button type="button" @click="adminTab = 'kanban'"
+                class="w-full flex items-center justify-between p-2.5 rounded-xl transition text-left"
+                :class="adminTab === 'kanban' ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-400 hover:text-white hover:bg-slate-800/80'">
+                <div class="flex items-center gap-3">
+                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
+                  <span>Доска заказов</span>
+                </div>
+                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">{{ kanbanTasks.length }}</span>
+              </button>
+
+              
+              <button type="button" @click="adminTab = 'chat'"
+                class="w-full flex items-center justify-between p-2.5 rounded-xl transition text-left"
+                :class="adminTab === 'chat' ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-400 hover:text-white hover:bg-slate-800/80'">
+                <div class="flex items-center gap-3">
+                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                  <span>Чат клиентов</span>
+                </div>
+                <span class="w-5 h-5 rounded-full bg-accent text-white text-[10px] font-bold flex items-center justify-center font-mono">2</span>
+              </button>
+
+              
+              <button type="button" @click="adminTab = 'design-system'"
+                class="w-full flex items-center justify-between p-2.5 rounded-xl transition text-left"
+                :class="adminTab === 'design-system' ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-400 hover:text-white hover:bg-slate-800/80'">
+                <div class="flex items-center gap-3">
+                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                  <span>UI Kit (Tokens)</span>
+                </div>
+              </button>
+            </nav>
+          </div>
+
+          <div class="pt-5 mt-6 border-t border-slate-800 space-y-2">
+            <button type="button" class="btn-outline w-full text-xs py-2 bg-slate-800 border-slate-700 text-slate-200 hover:bg-slate-700/80 flex items-center justify-center gap-2" @click="switchView('site')">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+              <span>На витрину сайта</span>
+            </button>
+          </div>
+        </aside>
+
+        
+        <div class="flex-1 overflow-y-auto bg-slate-100 dark:bg-slate-950 p-4 sm:p-6 lg:p-8">
+          
+          
+          <div v-if="adminTab === 'overview'" class="max-w-7xl mx-auto space-y-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                      <div>
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">Сводная аналитика мастерской</h2>
+                        <p class="text-xs text-slate-500">Показатели эффективности и финансовый учет</p>
+                      </div>
+                      <span class="text-xs font-mono text-slate-400">Обновлено: 16 ноября 2026</span>
+                    </div>
+            
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                      <div v-for="stat in analyticsStats" :key="stat.title" class="card-surface">
+                        <span class="text-xs font-medium text-slate-500 dark:text-slate-400 block mb-1">{{ stat.title }}</span>
+                        <div class="flex items-baseline justify-between">
+                          <span class="text-xl font-extrabold text-slate-900 dark:text-white font-mono">{{ stat.value }}</span>
+                          <span class="badge-pill text-xs font-bold"
+                            :class="stat.trend === 'up' ? 'badge-success' : 'badge-danger'">
+                            {{ stat.change }}
+                          </span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 mt-2">{{ stat.hint }}</p>
+                      </div>
+                    </div>
+            
+                    
+                    <div class="card-surface p-6">
+                      <div class="flex justify-between items-center mb-6">
+                        <div>
+                          <h3 class="text-sm font-bold text-slate-900 dark:text-white">Динамика заказов за неделю</h3>
+                          <p class="text-xs text-slate-400">Количество пар, принятых в работу по дням</p>
+                        </div>
+                        <span class="badge-pill bg-indigo-50 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400 font-mono text-xs">Всего: 239 пар</span>
+                      </div>
+            
+                      <div class="h-56 grid grid-cols-7 gap-3 sm:gap-6 items-end pt-8 pb-4 border-b border-slate-200 dark:border-slate-800">
+                        <div v-for="bar in chartBars" :key="bar.label" class="flex flex-col items-center h-full justify-end group relative">
+                          <div class="w-full rounded-t-xl transition-all duration-300"
+                            :class="bar.color" :style="{ height: bar.height }"></div>
+                          <span class="text-xs font-mono font-bold text-slate-500 mt-2">{{ bar.label }}</span>
+                        </div>
+                      </div>
+                    </div>
+            
+                    
+                    <div class="card-surface p-6">
+                      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                        <div>
+                          <h3 class="text-sm font-bold text-slate-900 dark:text-white">Последние финансовые транзакции</h3>
+                          <p class="text-xs text-slate-400">Оплата через ЕРИП, банковские карты и курьерский терминал</p>
+                        </div>
+            
+                        <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+                          <input type="text" v-model="transactionSearch" placeholder="Поиск транзакций..." class="input-field py-1.5 text-xs w-full sm:w-48">
+                          <select v-model="transactionFilter" class="input-field py-1.5 text-xs w-32">
+                            <option value="Все">Все статусы</option>
+                            <option value="Оплачено">Оплачено</option>
+                            <option value="В обработке">В обработке</option>
+                          </select>
+                        </div>
+                      </div>
+            
+                      <div class="overflow-x-auto scrollbar-thin">
+                        <table class="w-full text-left text-xs min-w-[600px]">
+                          <thead class="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-mono text-[10px]">
+                            <tr>
+                              <th class="p-3">ID</th>
+                              <th class="p-3">Клиент</th>
+                              <th class="p-3">Модель</th>
+                              <th class="p-3">Услуга</th>
+                              <th class="p-3">Сумма</th>
+                              <th class="p-3">Статус</th>
+                              <th class="p-3">Дата</th>
+                            </tr>
+                          </thead>
+                          <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                            <tr v-for="t in filteredTransactions" :key="t.id" class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                              <td class="p-3 font-mono font-bold">{{ t.id }}</td>
+                              <td class="p-3 font-semibold text-slate-900 dark:text-white">{{ t.client }}</td>
+                              <td class="p-3 truncate max-w-[150px]">{{ t.model }}</td>
+                              <td class="p-3">{{ t.service }}</td>
+                              <td class="p-3 font-mono font-bold text-slate-900 dark:text-white">{{ t.amount }}</td>
+                              <td class="p-3">
+                                <span class="badge-pill text-[10px]" :class="t.statusClass">{{ t.status }}</span>
+                              </td>
+                              <td class="p-3 font-mono text-slate-400">{{ t.date }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+          </div>
+
+          
+          <div v-else-if="adminTab === 'orders'" class="max-w-7xl mx-auto space-y-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <span class="text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 font-semibold">База данных мастерской</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Реестр заказов и импорт Excel</h2>
+                <p class="text-xs text-slate-500 mt-1">Управление заказами, пакетная загрузка ведомостей и контроль статусов ремонта</p>
+              </div>
+            </div>
+
+            
+            <div class="card-surface border-2 border-dashed border-slate-300 dark:border-slate-700 p-6 text-center cursor-pointer hover:border-brand-500 transition"
+              :class="{ 'border-brand-500 bg-brand-50/20': isExcelDragging }"
+              @click="triggerExcelPicker" @dragover.prevent="isExcelDragging = true" @dragleave.prevent="isExcelDragging = false" @drop.prevent="onExcelDrop">
+              
+              <input type="file" ref="excelInputRef" class="hidden" accept=".xlsx, .xls" @change="onExcelFileSelect">
+              
+              <div class="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mx-auto mb-2 font-mono font-bold text-xs">
+                XLS
+              </div>
+              <p class="text-xs sm:text-sm font-bold text-slate-800 dark:text-white mb-0.5">Нажмите для выбора Excel-файла или перетащите его сюда (.xlsx, .xls)</p>
+              <p class="text-[11px] text-slate-400">Пакетная передача партий обуви: автоматическое чтение табличных ведомостей</p>
+
+              <div v-if="uploadedExcelInfo" class="mt-3 p-2.5 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 text-xs rounded-xl inline-flex items-center gap-2">
+                <span>✓ Загружен: {{ uploadedExcelInfo.name }} ({{ uploadedExcelInfo.size }})</span>
+                <button class="text-rose-600 font-bold hover:underline ml-2" @click.stop="clearUploadedExcel">Удалить</button>
+              </div>
+            </div>
+
+            
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mb-12 scroll-mt-20" id="data-table">
+                    <div class="card-surface p-6">
+                      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                        <div>
+                          <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Реестр заказов мастерской</h3>
+                          <p class="text-xs text-slate-500">Всего записей: {{ tableData.length }} &bull; Статус доступа: <span class="font-semibold">{{ userRoleBadge.text }}</span></p>
+                        </div>
+                        
+                        <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                          <input type="text" v-model="searchQuery" placeholder="Поиск в таблице..." class="input-field py-1.5 text-xs w-full sm:w-48">
+                          
+                          <div class="inline-flex rounded-xl border border-slate-200 dark:border-slate-700 p-0.5 text-xs">
+                            <button type="button" @click="setViewMode('pagination')" class="px-2.5 py-1 rounded-lg"
+                              :class="viewMode === 'pagination' ? 'bg-slate-900 text-white dark:bg-brand-600' : 'text-slate-500'">Стр.</button>
+                            <button type="button" @click="setViewMode('lazy')" class="px-2.5 py-1 rounded-lg"
+                              :class="viewMode === 'lazy' ? 'bg-slate-900 text-white dark:bg-brand-600' : 'text-slate-500'">Lazy</button>
+                          </div>
+            
+                          <button class="btn-primary text-xs py-1.5 px-3" @click="openAddModal">+ Добавить заказ</button>
+                          <button class="btn-outline text-xs py-1.5 px-3" @click="resetToDefaultSeed" title="Сбросить к исходным">Сброс</button>
+                        </div>
+                      </div>
+            
+                      
+                      <div class="mb-4 p-3 rounded-2xl border text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5"
+                        :class="isAdmin ? 'bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200' : (isMaster ? 'bg-indigo-50 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-800 text-indigo-900 dark:text-indigo-200' : 'bg-slate-100 dark:bg-[#181A20] border-slate-200/80 dark:border-white/10 text-slate-600 dark:text-slate-300')">
+                        <div class="flex items-center gap-2">
+                          <span v-if="isAdmin" class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-amber-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 01.78.375l2.25 3a1 1 0 001.246.275l3.5-1.75a1 1 0 011.378 1.157l-1.5 7.5A1 1 0 0116.63 13.5H3.37a1 1 0 01-.98-1.218l-1.5-7.5a1 1 0 011.378-1.157l3.5 1.75a1 1 0 001.246-.275l2.25-3A1 1 0 0110 2zM3 16a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+                            <span><strong>Панель Администратора:</strong> управление заказами, редактирование статусов и удаление записей.</span>
+                          </span>
+                          <span v-else-if="isMaster" class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-brand-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
+                            <span><strong>Панель Мастера:</strong> доступ к добавлению заказов и обновлению этапов работ.</span>
+                          </span>
+                          <span v-else class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            <span><strong>Реестр заказов мастерской:</strong> поиск и проверка актуальных статусов обуви в работе.</span>
+                          </span>
+                        </div>
+                        <button v-if="!currentUser" @click="openAuthModal('login')" type="button" class="btn-outline text-[11px] py-1 px-3 shrink-0">
+                          Вход для персонала
+                        </button>
+                      </div>
+            
+                      <div class="overflow-x-auto scrollbar-thin">
+                        <table class="w-full text-left text-xs min-w-[650px]">
+                          <thead class="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-mono text-[10px]">
+                            <tr>
+                              <th class="p-3">ID</th>
+                              <th class="p-3">Модель</th>
+                              <th class="p-3">Клиент</th>
+                              <th class="p-3">Телефон</th>
+                              <th class="p-3">Услуга</th>
+                              <th class="p-3">Цена</th>
+                              <th class="p-3">Статус</th>
+                              <th class="p-3 text-right">Действия</th>
+                            </tr>
+                          </thead>
+                          <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                            <tr v-for="row in displayedRows" :key="row.id" class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                              <td class="p-3 font-mono font-bold">{{ row.id }}</td>
+                              <td class="p-3 font-semibold text-slate-900 dark:text-white">{{ row.model }}</td>
+                              <td class="p-3">{{ row.client }}</td>
+                              <td class="p-3 font-mono text-slate-500">{{ row.phone }}</td>
+                              <td class="p-3">{{ row.service }}</td>
+                              <td class="p-3 font-mono font-bold">{{ row.price }} BYN</td>
+                              <td class="p-3">
+                                <span class="badge-pill text-[10px]"
+                                  :class="row.status === 'Готово' ? 'badge-success' : (row.status === 'В работе' ? 'badge-warning' : 'badge-info')">
+                                  {{ row.status }}
+                                </span>
+                              </td>
+                              <td class="p-3 text-right space-x-2 whitespace-nowrap">
+                                <button v-if="isMaster" class="text-indigo-600 dark:text-brand-400 hover:underline font-semibold" @click="openEditModal(row)" title="Редактировать запись">Изм.</button>
+                                <button v-if="isAdmin" class="text-rose-600 hover:underline font-semibold" @click="deleteRow(row.id)" title="Удалить запись (только Администратор)">Уд.</button>
+                                <span v-if="!isMaster" class="text-[10px] text-slate-400 font-mono">Только просмотр</span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+            
+                      
+                      <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs">
+                        <span class="text-slate-500">Показано {{ displayedRows.length }} из {{ filteredTableData.length }}</span>
+                        
+                        <div v-if="viewMode === 'pagination'" class="flex gap-2">
+                          <button class="btn-outline text-xs py-1 px-3" @click="prevPage" :disabled="currentPage === 1">Назад</button>
+                          <span class="font-mono text-xs font-semibold px-2 flex items-center">{{ currentPage }} / {{ totalPages }}</span>
+                          <button class="btn-outline text-xs py-1 px-3" @click="nextPage" :disabled="currentPage >= totalPages">Вперед</button>
+                        </div>
+                        
+                        <div v-else>
+                          <button v-if="canLoadMoreLazy" class="btn-outline text-xs py-1.5 px-4" @click="loadMoreLazy">
+                            Показать еще 10 записей ↓
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+          </div>
+
+          
+          <div v-else-if="adminTab === 'kanban'" class="max-w-7xl mx-auto space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+              <div>
+                <span class="text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 font-semibold">Операционный контроль</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Kanban-доска заказов мастерской</h2>
+                <p class="text-xs text-slate-500 mt-1">Перетаскивайте карточки между колонками для смены этапов реставрации (сохраняется в памяти)</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" class="btn-outline text-xs py-1.5 px-3.5" @click="resetKanbanTasks" title="Восстановить исходные карточки">
+                  Сбросить доску
+                </button>
+              </div>
+            </div>
+
+            
+            <div v-if="!isMaster" class="p-4 rounded-2xl border border-amber-200 dark:border-amber-900/60 bg-amber-50/80 dark:bg-amber-950/30 text-amber-900 dark:text-amber-200 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+              <div class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                <div>
+                  <p class="font-bold">Цеховая доска находится в режиме просмотра</p>
+                  <p class="text-[11px] opacity-80">Перемещение карточек по этапам реставрации доступно авторизованным мастерам.</p>
+                </div>
+              </div>
+              <button type="button" @click="openAuthModal('login')" class="btn-primary text-xs py-1.5 px-3 self-start sm:self-auto shrink-0 shadow-xs">
+                Войти как мастер
+              </button>
+            </div>
+
+            <div class="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto snap-x snap-mandatory pb-6">
+              <div v-for="col in kanbanColumns" :key="col.id"
+                @dragover.prevent="onKanbanDragOver($event, col.id)"
+                @dragleave="onKanbanDragLeave($event, col.id)"
+                @drop="onKanbanDrop($event, col.id)"
+                class="min-w-[300px] sm:min-w-[340px] md:min-w-0 snap-center rounded-3xl p-4 border flex flex-col transition-all duration-200"
+                :class="dragOverColId === col.id ? 'bg-indigo-50/80 dark:bg-slate-800 border-brand-500 ring-2 ring-brand-500/30' : 'bg-slate-200/60 dark:bg-slate-900/70 border-slate-200 dark:border-slate-800'">
+                
+                <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-300/60 dark:border-slate-800">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full" :class="col.dotColor"></span>
+                    <h3 class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">{{ col.title }}</h3>
+                  </div>
+                  <span class="bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs px-2 py-0.5 rounded-full font-bold shadow-sm">
+                    {{ col.tasks.length }}
+                  </span>
+                </div>
+
+                <div class="space-y-3 flex-1 overflow-y-auto max-h-[calc(100vh-280px)] scrollbar-thin">
+                  <div v-for="task in col.tasks" :key="task.id"
+                    :data-kanban-task="task.id"
+                    :draggable="isMaster || isAdmin"
+                    @dragstart="onKanbanDragStart($event, task)"
+                    @dragover.prevent
+                    @drop.stop="onKanbanCardDrop($event, task.id, col.id)"
+                    class="group bg-white dark:bg-slate-800/90 rounded-2xl p-4 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition cursor-grab active:cursor-grabbing select-none"
+                    :class="{'opacity-40': draggedTaskId === task.id}">
+                    
+                    <div class="flex items-center justify-between gap-2 mb-2">
+                      <div class="flex items-center gap-1.5 text-slate-400">
+                        <span class="font-mono text-[10px] font-bold">{{ task.id }}</span>
+                      </div>
+                      <span class="badge-pill text-[10px]" :class="task.priorityColor">
+                        {{ task.priority }}
+                      </span>
+                    </div>
+
+                    <div class="flex gap-3 mb-2.5">
+                      <img :src="task.image" :alt="task.title" class="w-11 h-11 rounded-xl object-cover shrink-0 border border-slate-100 dark:border-slate-700">
+                      <div>
+                        <h4 class="text-xs font-bold text-slate-900 dark:text-white leading-snug">{{ task.title }}</h4>
+                        <span class="badge-pill bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-[9px] mt-1">
+                          {{ task.tag }}
+                        </span>
+                      </div>
+                    </div>
+
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed mb-3">
+                      {{ task.desc }}
+                    </p>
+
+                    <div class="pt-3 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between text-[11px]">
+                      <div class="flex items-center gap-2">
+                        <img :src="task.avatar" :alt="task.assignee" class="w-5 h-5 rounded-full object-cover">
+                        <span class="text-slate-600 dark:text-slate-300 font-medium text-[11px]">{{ task.assignee }}</span>
+                      </div>
+
+                      <div class="flex gap-1" v-if="isMaster || isAdmin">
+                        <button v-if="task.status !== 'todo'" @click="moveKanbanTask(task.id, 'todo')"
+                          class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-[10px] text-slate-700 dark:text-slate-200 transition" title="В To Do">◀</button>
+                        <button v-if="task.status !== 'in_progress'" @click="moveKanbanTask(task.id, 'in_progress')"
+                          class="px-2 py-0.5 rounded bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/60 dark:hover:bg-indigo-900 text-indigo-600 dark:text-indigo-400 text-[10px] transition" title="В работу">⚡</button>
+                        <button v-if="task.status !== 'done'" @click="moveKanbanTask(task.id, 'done')"
+                          class="px-2 py-0.5 rounded bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/60 dark:hover:bg-emerald-900 text-emerald-600 dark:text-emerald-400 text-[10px] transition" title="В готово">▶</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          
+          <div v-else-if="adminTab === 'chat'" class="max-w-6xl mx-auto flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-xl overflow-hidden min-h-[580px] h-[calc(100vh-140px)]">
+            <div class="flex flex-1 h-full overflow-hidden">
+                      
+                      
+                      <div class="w-full sm:w-80 md:w-96 border-r border-slate-200/80 dark:border-slate-800 flex flex-col bg-slate-50/50 dark:bg-slate-900/50">
+                        <div class="p-4 border-b border-slate-200/80 dark:border-slate-800">
+                          <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-bold text-slate-900 dark:text-white text-sm">Сообщения</h3>
+                            <span class="badge-pill bg-brand-50 text-brand-600 dark:bg-brand-950 dark:text-brand-400 text-[10px]">
+                              {{ dialogues.length }} чата
+                            </span>
+                          </div>
+                          <input type="text" v-model="chatSearchQuery" placeholder="Поиск диалогов..." class="input-field py-1.5 text-xs">
+                        </div>
+            
+                        <div class="flex-1 overflow-y-auto scrollbar-thin divide-y divide-slate-100 dark:divide-slate-800">
+                          <div v-for="d in filteredDialogues" :key="d.id"
+                            @click="selectDialogue(d.id)"
+                            class="p-4 flex items-center gap-3 cursor-pointer transition hover:bg-slate-100 dark:hover:bg-slate-800/60"
+                            :class="activeDialogueId === d.id ? 'bg-indigo-50/70 dark:bg-slate-800 border-l-4 border-brand-500' : ''">
+                            
+                            <div class="relative shrink-0">
+                              <img :src="d.avatar" :alt="d.name" class="w-10 h-10 rounded-full object-cover border border-slate-200 dark:border-slate-700">
+                              <span v-if="d.online" class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 border-2 border-white dark:border-slate-900"></span>
+                            </div>
+            
+                            <div class="flex-1 min-w-0">
+                              <div class="flex justify-between items-baseline mb-0.5">
+                                <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate">{{ d.name }}</h4>
+                                <span class="text-[10px] text-slate-400 font-mono">{{ d.messages[d.messages.length - 1]?.time || '10:00' }}</span>
+                              </div>
+                              <p class="text-[11px] text-slate-500 truncate">
+                                {{ d.messages[d.messages.length - 1]?.text || 'Новое сообщение...' }}
+                              </p>
+                            </div>
+            
+                            <span v-if="d.unread > 0" class="w-5 h-5 rounded-full bg-brand-500 text-white text-[10px] font-bold flex items-center justify-center shrink-0">
+                              {{ d.unread }}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+            
+                      
+                      <div class="flex-1 flex flex-col bg-white dark:bg-slate-900 overflow-hidden">
+                        <div class="p-4 border-b border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
+                          <div class="flex items-center gap-3">
+                            <img :src="currentDialogue.avatar" :alt="currentDialogue.name" class="w-8 h-8 rounded-full object-cover">
+                            <div>
+                              <h4 class="text-xs font-bold text-slate-900 dark:text-white">{{ currentDialogue.name }}</h4>
+                              <p class="text-[10px] text-emerald-500 font-medium">● В сети в мастерской</p>
+                            </div>
+                          </div>
+                          <span class="text-[11px] font-mono text-slate-400">SneakFix Live Messenger</span>
+                        </div>
+            
+                        
+                        <div class="flex-1 p-6 overflow-y-auto space-y-3 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-slate-300 dark:[&::-webkit-scrollbar-thumb]:bg-slate-700 [&::-webkit-scrollbar-thumb]:rounded-full">
+                          <div v-for="m in currentDialogue.messages" :key="m.id"
+                            class="flex flex-col" :class="m.sender === 'me' ? 'items-end' : 'items-start'">
+                            <div class="max-w-md rounded-2xl p-3.5 text-xs shadow-sm leading-relaxed"
+                              :class="m.sender === 'me'
+                                ? 'bg-slate-900 text-white dark:bg-brand-600 rounded-tr-none'
+                                : 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-tl-none border border-slate-200/60 dark:border-slate-700'">
+                              {{ m.text }}
+                            </div>
+                            <span class="text-[10px] text-slate-400 mt-1 font-mono px-1">{{ m.time }}</span>
+                          </div>
+                        </div>
+            
+                        
+                        <div class="sticky bottom-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur p-4 border-t border-slate-200/80 dark:border-slate-800 flex items-center gap-2">
+                          <input type="text" v-model="messageInput" @keydown.enter.prevent="sendMessage"
+                            placeholder="Напишите сообщение мастеру..." class="input-field py-2 text-xs flex-1">
+                          <button type="button" @click="sendMessage" class="btn-primary text-xs py-2 px-4 shadow-sm">
+                            Отправить
+                          </button>
+                        </div>
+                      </div>
+            
+                    </div>
+          </div>
+
+          
+          <div v-else-if="adminTab === 'design-system'" class="max-w-6xl mx-auto space-y-8">
+            <div class="flex justify-between items-center pb-6 border-b border-slate-200 dark:border-slate-800">
+                      <div>
+                        <span class="text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 font-semibold">Tailwind Design System</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Руководство по фирменному стилю UI Kit</h2>
+                        <p class="text-xs text-slate-500 mt-1">Документация компонентов на базе @layer components и @apply</p>
+                      </div>
+                      <span class="text-xs font-mono text-slate-400">Tailwind CSS 3.4</span>
+                    </div>
+            
+                    
+                    <section class="card-surface p-6">
+                      <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-4">1. Цветовые токены</h3>
+                      <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3">
+                        <div class="p-3 rounded-xl bg-slate-900 text-white text-xs">
+                          <span class="block font-bold">Slate 900</span>
+                          <span class="font-mono text-[10px] opacity-75">#0F172A</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-accent text-white text-xs">
+                          <span class="block font-bold">Accent</span>
+                          <span class="font-mono text-[10px] opacity-75">#2C5364</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-brand-500 text-white text-xs">
+                          <span class="block font-bold">Brand 500</span>
+                          <span class="font-mono text-[10px] opacity-75">#6366F1</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-emerald-500 text-white text-xs">
+                          <span class="block font-bold">Success</span>
+                          <span class="font-mono text-[10px] opacity-75">#10B981</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-amber-500 text-white text-xs">
+                          <span class="block font-bold">Warning</span>
+                          <span class="font-mono text-[10px] opacity-75">#F59E0B</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-rose-500 text-white text-xs">
+                          <span class="block font-bold">Danger</span>
+                          <span class="font-mono text-[10px] opacity-75">#F43F5E</span>
+                        </div>
+                      </div>
+                    </section>
+            
+                    
+                    <section class="card-surface p-6">
+                      <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-4">2. Компоненты кнопок (@apply .btn-*)</h3>
+                      <div class="flex flex-wrap items-center gap-3">
+                        <button class="btn-primary">Primary Button</button>
+                        <button class="btn-secondary">Secondary Button</button>
+                        <button class="btn-outline">Outline Button</button>
+                        <button class="btn-accent">Accent Button</button>
+                        <button class="btn-danger">Danger Button</button>
+                        <button class="btn-primary" disabled>Disabled Button</button>
+                      </div>
+                    </section>
+            
+                    
+                    <section class="card-surface p-6">
+                      <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-4">3. Бейджи и статусы (@apply .badge-*)</h3>
+                      <div class="flex flex-wrap gap-2.5 items-center">
+                        <span class="badge-pill badge-success">✓ Завершено</span>
+                        <span class="badge-pill badge-warning">⚡ В работе</span>
+                        <span class="badge-pill badge-danger">✕ Ошибка</span>
+                        <span class="badge-pill badge-info">ℹ Информация</span>
+                      </div>
+                    </section>
+            
+                    
+                    <section class="card-surface p-6 space-y-3">
+                      <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-4">4. Алерты и уведомления</h3>
+                      <div class="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-xs font-medium">
+                        ✓ Успех: Заказ успешно принят и передан мастеру на реставрацию.
+                      </div>
+                      <div class="p-3.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-300 text-xs font-medium">
+                        ⚡ Внимание: Обработка замши требует деликатной сушки 24 часа.
+                      </div>
+                      <div class="p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300 text-xs font-medium">
+                        ✕ Ошибка: Неверный формат загружаемого файла реестра.
+                      </div>
+                    </section>
+            
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+
+    
+
+    
+    <div class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      v-if="activeGalleryItem" @click.self="closeGalleryModal">
+      <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-2xl p-6 max-w-xl w-full max-h-[90vh] overflow-y-auto space-y-4">
+        
+        <div class="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
+          <span class="text-xs font-mono text-brand-500 font-bold uppercase tracking-wider">{{ activeGalleryItem.categoryLabel }}</span>
+          <button class="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white" @click="closeGalleryModal">✕</button>
+        </div>
+
+        <div class="aspect-video w-full rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800">
+          <img :src="activeGalleryItem.img" :alt="activeGalleryItem.title" class="w-full h-full object-cover">
+        </div>
+
+        <div>
+          <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">{{ activeGalleryItem.title }}</h3>
+          <p class="text-xs text-brand-600 dark:text-brand-400 font-semibold mt-0.5">{{ activeGalleryItem.service }}</p>
+        </div>
+
+        <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl">
+          {{ activeGalleryItem.desc }}
+        </p>
+
+        <div class="grid grid-cols-2 gap-4 text-xs font-mono border-t border-slate-100 dark:border-slate-800 pt-3">
+          <div><span class="text-slate-400">Сложность:</span> <span class="font-bold text-slate-900 dark:text-white">{{ activeGalleryItem.complexity }}</span></div>
+          <div><span class="text-slate-400">Клиент:</span> <span class="font-bold text-slate-900 dark:text-white">{{ activeGalleryItem.client }}</span></div>
+        </div>
+
+        <div class="flex justify-end pt-2">
+          <button class="btn-primary text-xs py-2 px-5" @click="closeGalleryModal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      v-if="isAuthModalOpen" @click.self="closeAuthModal">
+      <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-2xl p-6 sm:p-8 max-w-md w-full">
+        
+        <div class="flex justify-between items-center mb-5">
+          <h3 class="font-extrabold text-slate-900 dark:text-white text-base">Личный кабинет SneakFix</h3>
+          <button class="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white" @click="closeAuthModal">✕</button>
+        </div>
+
+        
+        <div class="grid grid-cols-3 gap-1 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl text-xs font-bold mb-4">
+          <button class="py-2 rounded-lg transition"
+            :class="authTab === 'login' ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500'"
+            @click="authTab = 'login'">Вход</button>
+          <button class="py-2 rounded-lg transition"
+            :class="authTab === 'register' ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500'"
+            @click="authTab = 'register'">Регистрация</button>
+          <button class="py-2 rounded-lg transition"
+            :class="authTab === 'reset' ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500'"
+            @click="authTab = 'reset'">Сброс</button>
+        </div>
+
+        <div v-if="authError" class="mb-4 p-3 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 text-xs rounded-xl border border-rose-200 dark:border-rose-900/60 flex items-center gap-2">
+          <span class="text-base">✕</span>
+          <span>{{ authError }}</span>
+        </div>
+        <div v-if="authSuccess" class="mb-4 p-3 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-xs rounded-xl border border-emerald-200 dark:border-emerald-900/60 flex items-center gap-2">
+          <span class="text-base">✓</span>
+          <span>{{ authSuccess }}</span>
+        </div>
+
+        
+        <form class="space-y-4" v-if="authTab === 'login'" @submit.prevent="handleLogin">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Адрес электронной почты</label>
+            <input class="input-field" type="email" v-model.trim="authForm.email" required placeholder="name@example.by">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Пароль</label>
+            <input class="input-field" type="password" v-model="authForm.password" required placeholder="••••••••">
+          </div>
+          <div class="flex justify-between items-center text-xs text-slate-500 dark:text-slate-400 pt-1">
+            <button type="button" @click="authTab = 'reset'" class="text-xs hover:underline text-slate-500 dark:text-slate-400">Забыли пароль?</button>
+            <button type="button" @click="authTab = 'register'" class="text-xs text-brand-600 dark:text-brand-400 font-semibold hover:underline">Создать аккаунт</button>
+          </div>
+          <button class="w-full btn-primary text-xs py-2.5 mt-2" type="submit" :disabled="authLoading">
+            <span v-if="authLoading">Выполняется вход...</span>
+            <span v-else>Войти в личный кабинет</span>
+          </button>
+        </form>
+
+        
+        <form class="space-y-4" v-if="authTab === 'register'" @submit.prevent="handleRegister">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Ваше имя</label>
+            <input class="input-field" type="text" v-model.trim="authForm.name" required placeholder="Иван Романов">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Email</label>
+            <input class="peer input-field peer-invalid:border-rose-500 focus:ring-2" type="email" v-model.trim="authForm.email" required placeholder="user@sneakfix.by">
+            <p class="hidden peer-invalid:block text-[11px] text-rose-500 mt-1">Введите корректный email</p>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Пароль</label>
+            <input class="peer input-field focus:ring-2" type="password" v-model="authForm.password" required placeholder="Минимум 6 символов">
+            
+            
+            <div class="mt-2 space-y-1">
+              <div class="flex justify-between text-[11px] text-slate-500">
+                <span>Надежность:</span>
+                <span class="font-bold font-mono" :class="passwordStrength >= 3 ? 'text-emerald-500' : (passwordStrength >= 2 ? 'text-amber-500' : 'text-rose-500')">
+                  {{ passwordStrength >= 3 ? 'Надежный' : (passwordStrength >= 2 ? 'Средний' : 'Простой') }}
+                </span>
+              </div>
+              <div class="grid grid-cols-4 gap-1.5 h-1.5">
+                <div class="rounded-full transition-colors" :class="passwordStrength >= 1 ? 'bg-rose-500' : 'bg-slate-200 dark:bg-slate-700'"></div>
+                <div class="rounded-full transition-colors" :class="passwordStrength >= 2 ? 'bg-amber-500' : 'bg-slate-200 dark:bg-slate-700'"></div>
+                <div class="rounded-full transition-colors" :class="passwordStrength >= 3 ? 'bg-emerald-500' : 'bg-slate-200 dark:bg-slate-700'"></div>
+                <div class="rounded-full transition-colors" :class="passwordStrength >= 4 ? 'bg-emerald-600' : 'bg-slate-200 dark:bg-slate-700'"></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Повторите пароль</label>
+            <input class="peer input-field focus:ring-2" type="password" v-model="authForm.confirmPassword" required placeholder="Повторите пароль">
+          </div>
+          <div class="flex items-start gap-2 pt-1">
+            <input type="checkbox" id="terms" v-model="termsAccepted" required class="rounded text-brand-600 focus:ring-brand-500 mt-0.5">
+            <label for="terms" class="text-xs text-slate-600 dark:text-slate-400 select-none">
+              Согласен с политикой обработки данных
+            </label>
+          </div>
+          <button type="submit" class="w-full btn-primary text-xs py-2.5 mt-2" :disabled="authLoading || !termsAccepted">
+            Зарегистрироваться
+          </button>
+        </form>
+
+        
+        <form class="space-y-4" v-if="authTab === 'reset'" @submit.prevent="handleReset">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Email для сброса</label>
+            <input class="input-field" type="email" v-model.trim="authForm.email" required placeholder="user@sneakfix.by">
+          </div>
+          <button class="w-full btn-primary text-xs py-2.5 mt-2" type="submit" :disabled="authLoading">
+            Отправить ссылку сброса
+          </button>
+        </form>
+
+      </div>
+    </div>
+
+    
+    <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      v-if="isErrorModalOpen" @click.self="closeErrorModal">
+      <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 max-w-sm w-full text-center space-y-3">
+        <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto text-base font-bold">✕</div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-sm">Неверный формат файла</h3>
+        <p class="text-xs text-slate-500">{{ errorMessage }}</p>
+        <button class="btn-primary w-full text-xs py-2" @click="closeErrorModal">Понятно</button>
+      </div>
+    </div>
+
+    
+    <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      v-if="isCrudModalOpen" @click.self="closeCrudModal">
+      <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 max-w-md w-full space-y-4">
+        
+        <div class="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
+          <h3 class="font-bold text-slate-900 dark:text-white text-sm">
+            {{ crudMode === 'add' ? 'Новый заказ в реестр' : 'Редактирование заказа #' + crudForm.id }}
+          </h3>
+          <button class="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white" @click="closeCrudModal">✕</button>
+        </div>
+
+        <div v-if="crudError" class="p-2.5 bg-rose-50 text-rose-700 text-xs rounded-xl border border-rose-200">
+          ✕ {{ crudError }}
+        </div>
+
+        <form class="space-y-3" @submit.prevent="saveCrudItem">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Модель обуви *</label>
+              <input class="input-field" type="text" v-model.trim="crudForm.model" required placeholder="Air Jordan 1">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Клиент *</label>
+              <input class="input-field" type="text" v-model.trim="crudForm.client" required placeholder="Алексей И.">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Телефон</label>
+              <input class="input-field font-mono" type="tel" v-model.trim="crudForm.phone">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Услуга</label>
+              <input class="input-field" type="text" v-model.trim="crudForm.service">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Цена (BYN)</label>
+              <input class="input-field font-mono" type="number" v-model.number="crudForm.price" required>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Статус</label>
+              <select class="input-field" v-model="crudForm.status">
+                <option value="В работе">В работе</option>
+                <option value="Ожидает">Ожидает</option>
+                <option value="Готово">Готово</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+            <button class="btn-outline text-xs py-2 px-4" type="button" @click="closeCrudModal">Отмена</button>
+            <button class="btn-primary text-xs py-2 px-5" type="submit">Сохранить</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+
+  
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="js/apiService.js"></script>
+  <script src="js/authService.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
+
