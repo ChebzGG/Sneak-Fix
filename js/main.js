@@ -64,28 +64,41 @@ const app = createApp({
     const auth = (typeof window !== 'undefined' && typeof window.createAuthService === 'function' ? window.createAuthService() : null) || createFallbackAuth();
     const api = (typeof window !== 'undefined' && typeof window.createApiService === 'function' ? window.createApiService() : null);
 
-     
-     
-     
+    const currentUser = ref(auth ? auth.getCurrentUser() : null);
+
+    const isAdmin = computed(() => currentUser.value && currentUser.value.role === 'admin');
+    const isMaster = computed(() => currentUser.value && currentUser.value.role === 'master');
+    const isStaff = computed(() => currentUser.value && (currentUser.value.role === 'master' || currentUser.value.role === 'admin'));
+    const isClient = computed(() => currentUser.value && currentUser.value.role === 'user');
+    const isGuest = computed(() => !currentUser.value);
+
+    const userRoleBadge = computed(() => {
+      if (!currentUser.value) return { text: 'Гость (Только просмотр)', role: 'guest', color: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 border-slate-200 dark:border-slate-700' };
+      if (currentUser.value.role === 'admin') return { text: 'Администратор', role: 'admin', color: 'bg-amber-500/10 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300 border-amber-300 dark:border-amber-700' };
+      if (currentUser.value.role === 'master') return { text: 'Мастер смены', role: 'master', color: 'bg-indigo-500/10 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300 border-indigo-300 dark:border-indigo-700' };
+      return { text: 'Клиент', role: 'user', color: 'bg-emerald-500/10 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300 border-emerald-300 dark:border-emerald-700' };
+    });
+
     const activeView = ref('site');  
     const adminTab = ref('overview');  
     const isMenuOpen = ref(false);
     const isWorkshopMenuOpen = ref(false);
+
+    const isClientChatOpen = ref(false);
+    const clientMessageInput = ref('');
+    const isMasterTyping = ref(false);
 
     const appViews = [
       { id: 'site', label: 'Главная', badge: null, icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
       { id: 'admin', label: 'Панель Voyager CRM', badge: null, icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z' }
     ];
 
-     
     const internalViews = [
       { id: 'admin', label: 'Панель Voyager', badge: null, icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z' }
     ];
 
     const isMoreMenuOpen = ref(false);
-     
 
-     
     const navLinks = [
       { href: '#services', text: 'Услуги и цены' },
       { href: '#before-after', text: 'До и После' },
@@ -93,7 +106,6 @@ const app = createApp({
       { href: '#products', text: 'Магазин' }
     ];
 
-     
     const secondaryNavLinks = [
       { href: '#about', text: 'О мастере' },
       { href: '#pricing', text: 'Тарифные планы' },
@@ -114,18 +126,34 @@ const app = createApp({
     const switchView = (vId, tab = null) => {
       isMenuOpen.value = false;
       isWorkshopMenuOpen.value = false;
-      if (vId === 'kanban') {
+
+      if (vId === 'admin' || vId === 'kanban' || vId === 'overview' || vId === 'orders' || vId === 'design-system') {
+        if (!isStaff.value) {
+          activeView.value = 'site';
+          return;
+        }
+
         activeView.value = 'admin';
-        adminTab.value = 'kanban';
+        if (vId === 'kanban') {
+          adminTab.value = 'kanban';
+        } else if (vId === 'design-system') {
+          adminTab.value = 'design-system';
+        } else if (tab) {
+          if (tab === 'overview' && !isAdmin.value) {
+            adminTab.value = 'orders';
+          } else {
+            adminTab.value = tab;
+          }
+        } else {
+          adminTab.value = isAdmin.value ? 'overview' : 'orders';
+        }
       } else if (vId === 'messenger') {
-        activeView.value = 'admin';
-        adminTab.value = 'chat';
-      } else if (vId === 'design-system') {
-        activeView.value = 'admin';
-        adminTab.value = 'design-system';
-      } else if (vId === 'admin') {
-        activeView.value = 'admin';
-        if (tab) adminTab.value = tab;
+        if (isStaff.value) {
+          activeView.value = 'admin';
+          adminTab.value = 'chat';
+        } else {
+          openChat();
+        }
       } else {
         activeView.value = 'site';
       }
@@ -150,10 +178,18 @@ const app = createApp({
 
     const openChat = () => {
       if (!currentUser.value) {
-        openAuthModal('login', 'Для входа в чат мастерской необходимо войти в систему или зарегистрироваться.');
+        openAuthModal('login', 'Для обращения к мастеру необходимо войти в систему или зарегистрироваться.');
         return;
       }
-      switchView('admin', 'chat');
+      if (isStaff.value) {
+        switchView('admin', 'chat');
+      } else {
+        isClientChatOpen.value = true;
+      }
+    };
+
+    const closeClientChat = () => {
+      isClientChatOpen.value = false;
     };
 
     const openMenu = () => { isMenuOpen.value = true; };
@@ -552,7 +588,7 @@ const app = createApp({
     };
 
     const triggerExcelPicker = () => {
-      if (!isMaster.value) {
+      if (!isStaff.value) {
         showErrorModal('Пакетная передача партий обуви через Excel доступна только сотрудникам мастерской (мастеру или администратору). Пожалуйста, авторизуйтесь.');
         return;
       }
@@ -571,7 +607,7 @@ const app = createApp({
 
     const processExcelFile = async (file) => {
       if (!file) return;
-      if (!isMaster.value) {
+      if (!isStaff.value) {
         showErrorModal('Пакетная передача партий обуви через Excel доступна только сотрудникам мастерской (мастеру или администратору). Пожалуйста, авторизуйтесь.');
         return;
       }
@@ -689,7 +725,7 @@ const app = createApp({
     });
 
     const openAddModal = () => {
-      if (!isMaster.value) {
+      if (!isStaff.value) {
         alert('Регистрация и добавление заказов в реестр доступно только мастеру или администратору.');
         openAuthModal('login');
         return;
@@ -708,7 +744,7 @@ const app = createApp({
     };
 
     const openEditModal = (row) => {
-      if (!isMaster.value) {
+      if (!isStaff.value) {
         alert('Редактирование заказов доступно только мастеру или администратору.');
         openAuthModal('login');
         return;
@@ -780,7 +816,6 @@ const app = createApp({
      
      
      
-    const currentUser = ref(auth ? auth.getCurrentUser() : null);
     const isAuthModalOpen = ref(false);
     const authTab = ref('login');
     const authLoading = ref(false);
@@ -790,8 +825,8 @@ const app = createApp({
 
     const authForm = reactive({
       name: '',
-      email: 'admin@sneakfix.by',
-      password: 'admin123',
+      email: 'client@sneakfix.by',
+      password: 'client123',
       confirmPassword: ''
     });
 
@@ -809,8 +844,6 @@ const app = createApp({
       authSuccess.value = '';
       document.body.classList.remove('modal-open');
     };
-
- 
 
     const passwordStrength = computed(() => {
       const p = authForm.password || '';
@@ -832,12 +865,49 @@ const app = createApp({
         if (res.success) {
           currentUser.value = res.user;
           authSuccess.value = `Добро пожаловать, ${res.user.name}!`;
-          setTimeout(() => closeAuthModal(), 600);
+          setTimeout(() => {
+            closeAuthModal();
+            if (res.user.role === 'admin') {
+              switchView('admin', 'overview');
+            } else if (res.user.role === 'master') {
+              switchView('admin', 'orders');
+            } else {
+              activeView.value = 'site';
+            }
+          }, 500);
         } else {
           authError.value = res.message;
         }
       } catch (err) {
         authError.value = err.message || 'Ошибка авторизации';
+      } finally {
+        authLoading.value = false;
+      }
+    };
+
+    const handleQuickLogin = async (role) => {
+      authError.value = '';
+      authSuccess.value = '';
+      authLoading.value = true;
+      try {
+        const res = await auth.quickLogin(role);
+        if (res.success) {
+          currentUser.value = res.user;
+          const roleTitle = res.user.role === 'admin' ? 'Администратор' : (res.user.role === 'master' ? 'Мастер' : 'Клиент');
+          authSuccess.value = `Вход выполнен: ${res.user.name} (${roleTitle})`;
+          setTimeout(() => {
+            closeAuthModal();
+            if (res.user.role === 'admin') {
+              switchView('admin', 'overview');
+            } else if (res.user.role === 'master') {
+              switchView('admin', 'orders');
+            } else {
+              activeView.value = 'site';
+            }
+          }, 400);
+        }
+      } catch (err) {
+        authError.value = err.message || 'Ошибка быстрого входа';
       } finally {
         authLoading.value = false;
       }
@@ -852,7 +922,10 @@ const app = createApp({
         if (res.success) {
           currentUser.value = res.user;
           authSuccess.value = 'Регистрация прошла успешно!';
-          setTimeout(() => closeAuthModal(), 600);
+          setTimeout(() => {
+            closeAuthModal();
+            activeView.value = 'site';
+          }, 500);
         } else {
           authError.value = res.message;
         }
@@ -881,59 +954,49 @@ const app = createApp({
     const handleLogout = async () => {
       if (auth) await auth.logout();
       currentUser.value = null;
+      isClientChatOpen.value = false;
       if (activeView.value === 'admin') activeView.value = 'site';
     };
 
-     
-     
-     
-    const isAdmin = computed(() => currentUser.value && currentUser.value.role === 'admin');
-    const isMaster = computed(() => currentUser.value && (currentUser.value.role === 'master' || currentUser.value.role === 'admin'));
-    const isClient = computed(() => currentUser.value && currentUser.value.role === 'user');
-    const isGuest = computed(() => !currentUser.value);
-
-    const userRoleBadge = computed(() => {
-      if (!currentUser.value) return { text: 'Гость (Только просмотр)', role: 'guest', color: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 border-slate-200 dark:border-slate-700' };
-      if (currentUser.value.role === 'admin') return { text: 'Администратор', role: 'admin', color: 'bg-amber-500/10 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300 border-amber-300 dark:border-amber-700' };
-      if (currentUser.value.role === 'master') return { text: 'Мастер-реставратор', role: 'master', color: 'bg-indigo-500/10 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300 border-indigo-300 dark:border-indigo-700' };
-      return { text: 'Клиент', role: 'user', color: 'bg-emerald-500/10 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300 border-emerald-300 dark:border-emerald-700' };
-    });
-
-
-     
-     
-     
     const dialogues = ref([
       {
         id: 1,
-        name: 'Иван Романов (Главный мастер)',
-        avatar: 'img/master.jpg',
+        name: 'Алексей Клиент (Air Jordan 1 Chicago)',
+        clientName: 'Алексей Клиент',
+        shoeModel: 'Air Jordan 1 Retro High Chicago',
+        avatar: 'img/avatar-1.jpg',
         online: true,
         unread: 1,
         messages: [
-          { id: 1, sender: 'them', text: 'Здравствуйте! Осмотрел ваши Jordan 1. Глубокий залом уберем жидкой кожей, колер уже замешал по каталогу Nike.', time: '11:20' },
-          { id: 2, sender: 'me', text: 'Отлично! А сколько времени займет сушка после нанесения финишного слоя?', time: '11:24' },
-          { id: 3, sender: 'them', text: 'По технологии ровно 12 часов при комнатной температуре. Завтра к 15:00 курьер сможет доставить.', time: '11:25' }
+          { id: 1, sender: 'master', text: 'Здравствуйте! Осмотрел ваши Jordan 1. Глубокий залом уберем жидкой кожей, колер уже замешал по каталогу Nike.', time: '11:20' },
+          { id: 2, sender: 'client', text: 'Отлично! А сколько времени займет сушка после нанесения финишного слоя?', time: '11:24' },
+          { id: 3, sender: 'master', text: 'По технологии ровно 12 часов при комнатной температуре. Завтра к 15:00 курьер сможет доставить.', time: '11:25' }
         ]
       },
       {
         id: 2,
-        name: 'Служба заботы SneakFix',
-        avatar: 'img/shoe-2.jpg',
+        name: 'Максим Козлов (Yeezy 350 Bone)',
+        clientName: 'Максим Козлов',
+        shoeModel: 'Adidas Yeezy Boost 350 V2 Bone',
+        avatar: 'img/avatar-2.jpg',
         online: true,
         unread: 0,
         messages: [
-          { id: 1, sender: 'them', text: 'Ваш заказ #SF-4192 успешно передан курьеру. Отслеживание доступно в реальном времени.', time: 'Вчера' }
+          { id: 1, sender: 'client', text: 'Добрый день, желтизна с прозрачного баллона Yeezy полностью сойдет?', time: 'Вчера' },
+          { id: 2, sender: 'master', text: 'Да, после 4-часовой оксидации в ультрафиолетовой камере подошва вернет исходный молочный цвет.', time: 'Вчера' }
         ]
       },
       {
         id: 3,
-        name: 'Курьерская доставка Минск',
-        avatar: 'img/shoe-3.jpg',
+        name: 'Екатерина В. (New Balance 990v3)',
+        clientName: 'Екатерина В.',
+        shoeModel: 'New Balance 990v3 Grey Suede',
+        avatar: 'img/avatar-3.jpg',
         online: false,
         unread: 0,
         messages: [
-          { id: 1, sender: 'them', text: 'Буду у вас с 14:00 до 15:00. Пара упакована в фирменный пыльник и бокс.', time: '10.11' }
+          { id: 1, sender: 'client', text: 'Здравствуйте, замша после дождя стала грубой, получится поднять ворс?', time: '10.11' },
+          { id: 2, sender: 'master', text: 'Здравствуйте! Конечно, используем деликатную паровую ванну и латунные щетки с эмульсией Saphir.', time: '10.11' }
         ]
       }
     ]);
@@ -942,6 +1005,8 @@ const app = createApp({
     const chatSearchQuery = ref('');
     const messageInput = ref('');
 
+    const clientDialogue = computed(() => dialogues.value[0]);
+
     const currentDialogue = computed(() => {
       return dialogues.value.find(d => d.id === activeDialogueId.value) || dialogues.value[0];
     });
@@ -949,7 +1014,7 @@ const app = createApp({
     const filteredDialogues = computed(() => {
       const q = chatSearchQuery.value.trim().toLowerCase();
       if (!q) return dialogues.value;
-      return dialogues.value.filter(d => d.name.toLowerCase().includes(q));
+      return dialogues.value.filter(d => d.name.toLowerCase().includes(q) || d.clientName.toLowerCase().includes(q));
     });
 
     const selectDialogue = (id) => {
@@ -963,11 +1028,47 @@ const app = createApp({
       if (!text) return;
       currentDialogue.value.messages.push({
         id: Date.now(),
-        sender: 'me',
+        sender: 'master',
         text,
         time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
       });
       messageInput.value = '';
+    };
+
+    const sendClientMessage = (customText = null) => {
+      const text = (typeof customText === 'string' ? customText : clientMessageInput.value).trim();
+      if (!text) return;
+      clientDialogue.value.messages.push({
+        id: Date.now(),
+        sender: 'client',
+        text,
+        time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
+      });
+      if (!customText) clientMessageInput.value = '';
+
+      isMasterTyping.value = true;
+      setTimeout(() => {
+        isMasterTyping.value = false;
+        let reply = 'Принял ваш запрос! Изучаю детали, сейчас сориентирую по срокам и материалам.';
+        const lower = text.toLowerCase();
+        if (lower.includes('замш')) {
+          reply = 'Для замши рекомендуем деликатную биочистку с поднятием ворса латунной щеткой и водоотталкивающим нано-бальзамом (от 50 BYN).';
+        } else if (lower.includes('курьер') || lower.includes('доставк')) {
+          reply = 'Курьер забирает обувь по Минску бесплатно при заказе комплекса услуг. Укажите удобный адрес и время!';
+        } else if (lower.includes('желтизн') || lower.includes('подошв') || lower.includes('отбеливан')) {
+          reply = 'Желтизну с подошвы выводим в ультрафиолетовой камере с активным оксидантом. Подошва возвращает заводской белоснежный цвет.';
+        }
+        clientDialogue.value.messages.push({
+          id: Date.now() + 1,
+          sender: 'master',
+          text: reply,
+          time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
+        });
+      }, 1000);
+    };
+
+    const sendQuickClientMessage = (text) => {
+      sendClientMessage(text);
     };
 
      
@@ -1163,6 +1264,9 @@ const app = createApp({
         if (urlParams.has('view')) {
           switchView(urlParams.get('view'), urlParams.get('tab') || 'overview');
         }
+        if (urlParams.has('chat')) {
+          openChat();
+        }
       } catch (_) {}
 
       await loadInitialTableData();
@@ -1192,11 +1296,20 @@ const app = createApp({
        
       isAdmin,
       isMaster,
+      isStaff,
       isClient,
       isGuest,
       userRoleBadge,
       navigateTo,
       openChat,
+      isClientChatOpen,
+      clientDialogue,
+      clientMessageInput,
+      isMasterTyping,
+      closeClientChat,
+      sendClientMessage,
+      sendQuickClientMessage,
+      handleQuickLogin,
 
       isDarkMode,
       toggleDarkMode,
