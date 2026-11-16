@@ -116,8 +116,8 @@ SneakFix/
 #### Run Locally
 1. Clone the repository:
    ```bash
-   git clone https://github.com/ChebzGG/sneakfix.git
-   cd sneakfix
+   git clone https://github.com/ChebzGG/Sneak-Fix.git
+   cd Sneak-Fix
    ```
 
 2. Start a local HTTP server:
@@ -247,8 +247,8 @@ SneakFix/
 #### Локальный запуск
 1. Клонировать репозиторий:
    ```bash
-   git clone https://github.com/ChebzGG/sneakfix.git
-   cd sneakfix
+   git clone https://github.com/ChebzGG/Sneak-Fix.git
+   cd Sneak-Fix
    ```
 
 2. Запустить локальный HTTP-сервер:
